@@ -55,7 +55,8 @@ x_test_norm  = (x_test  - mean) / std
 # -------------------------------------------------------------------
 
 fit.main(
-    x_train, y_train,
-    x_val, y_val,
-    "net_0"
+    x_train_norm, y_train,
+    x_val_norm, y_val,
+    "net_0",
+    sampler = "xavier_uniform"
 )

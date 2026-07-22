@@ -8,12 +8,14 @@ class Net0(torch.nn.Module):
         
         super().__init__()
         
-        self.fc1 = torch.nn.Linear(3 * 64 * 64)
+        self.fc1 = torch.nn.Linear(3 * 64 * 64, 1)
         
     def forward(self, x):
-        
+        print(x)
         x = x.view(-1, 3 * 64 * 64)
         
-        x = self.fc1
+        x = self.fc1(x)
+        
+        print(x)
         
         return x.squeeze(1)
