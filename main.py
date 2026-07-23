@@ -2,7 +2,8 @@ import h5py
 import numpy as np
 from sklearn.model_selection import train_test_split
 
-import fit
+from fit import FitNet
+
 
 with h5py.File("dataset/train_catvsnoncat.h5", 'r') as f:
 
@@ -54,9 +55,20 @@ x_test_norm  = (x_test  - mean) / std
 
 # -------------------------------------------------------------------
 
-fit.main(
+net_class = FitNet(
     x_train_norm, y_train,
-    x_val_norm, y_val,
-    "net_0",
-    sampler = "xavier_uniform"
+    x_val_norm, y_val
 )
+
+# --------------------------------------------
+net_0_dict = {
+    "lay_1_sampler_weight": "xavier_uniform",
+    "lay_1_sampler_bias": "zeros"
+}
+
+net_0 = net_class.model("net_0", net_0_dict)
+
+net_class.train(
+    net_0, result_dir_name = "result/net_0"
+)
+
