@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 import time
 
 from fit import FitNet
+import plot
 
 
 with h5py.File("dataset/train_catvsnoncat.h5", 'r') as f:
@@ -77,6 +78,8 @@ for each_seed in range(10):
     )
 '''
 
+#plot.model_variation(["result/net_0"])
+
 # -------------------------------------------------------------------
 
 net_1_1_dict = {
@@ -97,7 +100,7 @@ for each_seed in range(10):
         net_1_1, 
         result_dir_name = "result/net_1/var_1/seed_" + str(each_seed)
     )
-'''    
+'''
 #-----------------------------------------------
 #-----------------------------------------------
 
@@ -172,7 +175,7 @@ net_1_3_2_dict = {
     "lay_2_sampler_weight":     "kaiming_normal",
     "lay_2_sampler_bias":       "constant"
 }
-
+'''
 for each_seed in range(5,10):
     
     print("seed", each_seed)
@@ -183,3 +186,12 @@ for each_seed in range(5,10):
         net_1_3_2,
         result_dir_name = "result/net_1/var_3_2/seed_" + str(each_seed)
     )
+'''
+
+plot.model_variation([
+    "result/net_1/var_1",
+    "result/net_1/var_2_1",
+    "result/net_1/var_2_2",
+    "result/net_1/var_3_1",
+    "result/net_1/var_3_2"
+])
