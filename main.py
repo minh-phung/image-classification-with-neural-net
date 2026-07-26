@@ -1,6 +1,7 @@
 import h5py
 import numpy as np
 from sklearn.model_selection import train_test_split
+import time
 
 from fit import FitNet
 
@@ -62,97 +63,123 @@ net_class = FitNet(
 
 # -------------------------------------------------------------------
 
-'''
 net_0_dict = {
-    "lay_1_sampler_weight": "xavier_uniform",
-    "lay_1_sampler_bias": "zeros"
+    "lay_1_sampler_weight":     "xavier_uniform",
+    "lay_1_sampler_bias":       "zeros"
 }
-
-net_0 = net_class.model("net_0", net_0_dict)
-
-net_class.train(
-    net_0, result_dir_name = "result/net_0"
-)
 '''
+for each_seed in range(10):
+
+    net_0 = net_class.model("net_0", each_seed, net_0_dict)
+
+    net_class.train(
+        net_0, result_dir_name = "result/net_0/seed_" + str(each_seed)
+    )
+'''
+
 # -------------------------------------------------------------------
 
 net_1_1_dict = {
-    "lay_1_sampler_weight": "xavier_uniform",
-    "lay_1_sampler_bias": "zeros",
-    "lay_1_activation": "identity",
-    "lay_2_sampler_weight": "xavier_uniform",
-    "lay_2_sampler_bias": "zeros"
+    "lay_1_sampler_weight":     "xavier_uniform",
+    "lay_1_sampler_bias":       "zeros",
+    "lay_1_activation":         "identity",
+    "lay_2_sampler_weight":     "xavier_uniform",
+    "lay_2_sampler_bias":       "zeros"
 }
-
-net_1_1 = net_class.model("net_1", net_1_1_dict)
-
-net_class.train(
-    net_1_1, result_dir_name = "result/net_1_identity"
-)
-
-# --------------------------------------------
-# --------------------------------------------
+'''
+for each_seed in range(10):
+    
+    print("seed", each_seed)
+    
+    net_1_1 = net_class.model("net_1", each_seed, net_1_1_dict)
+    
+    net_class.train(
+        net_1_1, 
+        result_dir_name = "result/net_1/var_1/seed_" + str(each_seed)
+    )
+'''    
+#-----------------------------------------------
+#-----------------------------------------------
 
 net_1_2_1_dict = {
-    "lay_1_sampler_weight": "xavier_uniform",
-    "lay_1_sampler_bias": "zeros",
-    "lay_1_activation": "sigmoid",
-    "lay_2_sampler_weight": "xavier_uniform",
-    "lay_2_sampler_bias": "zeros"
+    "lay_1_sampler_weight":     "xavier_uniform",
+    "lay_1_sampler_bias":       "zeros",
+    "lay_1_activation":         "sigmoid",
+    "lay_2_sampler_weight":     "xavier_uniform",
+    "lay_2_sampler_bias":       "zeros"
 }
-
-net_1_2_1 = net_class.model("net_1", net_1_2_1_dict)
-
-net_class.train(
-    net_1_2_1, result_dir_name = "result/net_1_sigmoid_uni"
-)
-
-# --------------------------------------------
+'''
+for each_seed in range(8,10):
+    
+    print("seed", each_seed)
+    
+    net_1_2_1 = net_class.model("net_1", each_seed, net_1_2_1_dict)
+    
+    net_class.train(
+        net_1_2_1,
+        result_dir_name = "result/net_1/var_2_1/seed_" + str(each_seed)
+    )
+'''    
+#-----------------------------------------------
 
 net_1_2_2_dict = {
-    "lay_1_sampler_weight": "xavier_normal",
-    "lay_1_sampler_bias": "zeros",
-    "lay_1_activation": "sigmoid",
-    "lay_2_sampler_weight": "xavier_normal",
-    "lay_2_sampler_bias": "zeros"
+    "lay_1_sampler_weight":     "xavier_normal",
+    "lay_1_sampler_bias":       "zeros",
+    "lay_1_activation":         "sigmoid",
+    "lay_2_sampler_weight":     "xavier_normal",
+    "lay_2_sampler_bias":       "zeros"
 }
-
-net_1_2_2 = net_class.model("net_1", net_1_2_2_dict)
-
-net_class.train(
-    net_1_2_2, result_dir_name = "result/net_1_sigmoid_norm"
-)
-
-# --------------------------------------------
-# --------------------------------------------
+'''
+for each_seed in range(10):
+    
+    print("seed", each_seed)
+    
+    net_1_2_2 = net_class.model("net_1", each_seed, net_1_2_2_dict)
+    
+    net_class.train(
+        net_1_2_2,
+        result_dir_name = "result/net_1/var_2_2/seed_" + str(each_seed)
+    ) 
+'''
+#-----------------------------------------------
+#-----------------------------------------------
 
 net_1_3_1_dict = {
-    "lay_1_sampler_weight": "kaiming_uniform",
-    "lay_1_sampler_bias": "constant",
-    "lay_1_activation": "relu",
-    "lay_2_sampler_weight": "kaiming_uniform",
-    "lay_2_sampler_bias": "constant"
+    "lay_1_sampler_weight":     "kaiming_uniform",
+    "lay_1_sampler_bias":       "constant",
+    "lay_1_activation":         "relu",
+    "lay_2_sampler_weight":     "kaiming_uniform",
+    "lay_2_sampler_bias":       "constant"
 }
-
-net_1_3_1 = net_class.model("net_1", net_1_3_1_dict)
-
-net_class.train(
-    net_1_3_1, result_dir_name = "result/net_1_relu_uni"
-)
-
-# --------------------------------------------
+'''
+for each_seed in range(10):
+    
+    print("seed", each_seed)
+    
+    net_1_3_1 = net_class.model("net_1", each_seed, net_1_3_1_dict)
+    
+    net_class.train(
+        net_1_3_1,
+        result_dir_name = "result/net_1/var_3_1/seed_" + str(each_seed)
+    )
+'''
+#-----------------------------------------------
 
 net_1_3_2_dict = {
-    "lay_1_sampler_weight": "kaiming_normal",
-    "lay_1_sampler_bias": "constant",
-    "lay_1_activation": "relu",
-    "lay_2_sampler_weight": "kaiming_normal",
-    "lay_2_sampler_bias": "constant"
+    "lay_1_sampler_weight":     "kaiming_normal",
+    "lay_1_sampler_bias":       "constant",
+    "lay_1_activation":         "relu",
+    "lay_2_sampler_weight":     "kaiming_normal",
+    "lay_2_sampler_bias":       "constant"
 }
 
-net_1_3_2 = net_class.model("net_1", net_1_3_2_dict)
-
-net_class.train(
-    net_1_3_2, result_dir_name = "result/net_1_relu_norm"
-)
-
+for each_seed in range(5,10):
+    
+    print("seed", each_seed)
+    
+    net_1_3_2 = net_class.model("net_1", each_seed, net_1_3_2_dict)
+    
+    net_class.train(
+        net_1_3_2,
+        result_dir_name = "result/net_1/var_3_2/seed_" + str(each_seed)
+    )

@@ -25,8 +25,7 @@ class FitNet():
         self,
         x_train, y_train,
         x_val, y_val,
-        loss = "BCE_with_logit",
-        seed = 0
+        loss = "BCE_with_logit"
     ):
         
         print("Fit class Net")
@@ -63,12 +62,12 @@ class FitNet():
         print("Loss function", loss)
         self.loss_func = LOSS[loss]
         
-        self.seed = seed
-    
-    
-    def model(self, model, kwarg_dict):
         
-        torch.manual_seed(self.seed)
+    
+    
+    def model(self, model, seed, kwarg_dict):
+        
+        torch.manual_seed(seed)
         
         net = model_dict[model](**kwarg_dict)
         
