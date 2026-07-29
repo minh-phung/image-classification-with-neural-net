@@ -77,9 +77,12 @@ for each_seed in range(10):
         net_0, result_dir_name = "result/net_0/seed_" + str(each_seed)
     )
 '''
-
-#plot.model_variation(["result/net_0"])
-
+'''
+plot.model_variation(
+    ["result/net_0"],
+    dir_out = "result/plot/net_0"
+)
+'''
 # -------------------------------------------------------------------
 
 net_1_1_dict = {
@@ -112,7 +115,7 @@ net_1_2_1_dict = {
     "lay_2_sampler_bias":       "zeros"
 }
 '''
-for each_seed in range(8,10):
+for each_seed in range(10):
     
     print("seed", each_seed)
     
@@ -122,14 +125,14 @@ for each_seed in range(8,10):
         net_1_2_1,
         result_dir_name = "result/net_1/var_2_1/seed_" + str(each_seed)
     )
-'''    
+'''
 #-----------------------------------------------
 
 net_1_2_2_dict = {
     "lay_1_sampler_weight":     "xavier_normal",
     "lay_1_sampler_bias":       "zeros",
     "lay_1_activation":         "sigmoid",
-    "lay_2_sampler_weight":     "xavier_normal",
+    "lay_2_sampler_weight":     "xavier_uniform",
     "lay_2_sampler_bias":       "zeros"
 }
 '''
@@ -151,8 +154,8 @@ net_1_3_1_dict = {
     "lay_1_sampler_weight":     "kaiming_uniform",
     "lay_1_sampler_bias":       "constant",
     "lay_1_activation":         "relu",
-    "lay_2_sampler_weight":     "kaiming_uniform",
-    "lay_2_sampler_bias":       "constant"
+    "lay_2_sampler_weight":     "xavier_uniform",
+    "lay_2_sampler_bias":       "zeros"
 }
 '''
 for each_seed in range(10):
@@ -172,11 +175,11 @@ net_1_3_2_dict = {
     "lay_1_sampler_weight":     "kaiming_normal",
     "lay_1_sampler_bias":       "constant",
     "lay_1_activation":         "relu",
-    "lay_2_sampler_weight":     "kaiming_normal",
-    "lay_2_sampler_bias":       "constant"
+    "lay_2_sampler_weight":     "xavier_uniform",
+    "lay_2_sampler_bias":       "zeros"
 }
-'''
-for each_seed in range(5,10):
+
+for each_seed in range(10):
     
     print("seed", each_seed)
     
@@ -186,12 +189,40 @@ for each_seed in range(5,10):
         net_1_3_2,
         result_dir_name = "result/net_1/var_3_2/seed_" + str(each_seed)
     )
-'''
 
+'''
 plot.model_variation([
     "result/net_1/var_1",
     "result/net_1/var_2_1",
     "result/net_1/var_2_2",
     "result/net_1/var_3_1",
-    "result/net_1/var_3_2"
-])
+    "result/net_1/var_3_2"],
+    dir_out = "result/plot/net_1"
+)
+'''
+
+# -------------------------------------------------------------------
+
+net_2_1_dict = {
+    "lay_1_sampler_weight":     "xavier_uniform",
+    "lay_1_sampler_bias":       "zeros",
+    "lay_1_activation":         "sigmoid",
+    "lay_2_sampler_weight":     "xavier_uniform",
+    "lay_2_sampler_bias":       "zeros",
+    "lay_2_activation":         "sigmoid",
+    "lay_3_sampler_weight":     "kaiming_uniform",
+    "lay_3_sampler_bias":       "constant"
+}
+'''
+for each_seed in range(10):
+    
+    print("seed", each_seed)
+    
+    net_2_1 = net_class.model("net_2", each_seed, net_2_1_dict)
+    
+    net_class.train(
+        net_2_1,
+        result_dir_name = "result/net_2/var_1/seed_" + str(each_seed)
+    )
+'''
+#-----------------------------------------------

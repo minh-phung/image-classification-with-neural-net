@@ -1,0 +1,2 @@
+https://www.cs.toronto.edu/~rgrosse/courses/csc421_2019/readings/L09%20Convolutional%20Networks.pdf
+

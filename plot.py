@@ -8,10 +8,10 @@ color_plot = [
     'b', 'g', 'r', 'c', 'm', 'y', 'k'
 ]
 
-def model_variation(dir_list):
+def model_variation(dir_list, dir_out):
     
     for each_variable in ["mean", "std"]:
-        print(each_variable)
+        
         
         for i, each_dir in enumerate(dir_list):
             
@@ -37,7 +37,9 @@ def model_variation(dir_list):
         plt.ylabel("validation loss - " + each_variable)
         plt.legend()
         
-        plt.show()
+        #plt.show()
+        plt.savefig(dir_out + "_" + each_variable +".png")
+        plt.close()
     
     return
 

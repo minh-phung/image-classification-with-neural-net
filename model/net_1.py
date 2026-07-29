@@ -19,7 +19,7 @@ class Net1(torch.nn.Module):
         super().__init__()
         
         #---------------------------------------------------
-        self.fc1 = torch.nn.Linear(3 * 64 * 64, 65 * 65)
+        self.fc1 = torch.nn.Linear(3 * 64 * 64, 50 * 50)
         
         print("layer 1 weight", SAMPLER[lay_1_sampler_weight])
         SAMPLER[lay_1_sampler_weight](self.fc1.weight)
@@ -32,7 +32,7 @@ class Net1(torch.nn.Module):
         
         #---------------------------------------------------
         
-        self.fc2 = torch.nn.Linear(65 * 65, 1)
+        self.fc2 = torch.nn.Linear(50 * 50, 1)
         
         print("layer 2 weight", SAMPLER[lay_2_sampler_weight])
         SAMPLER[lay_2_sampler_weight](self.fc2.weight)
