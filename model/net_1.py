@@ -5,6 +5,8 @@ from feature.activation import ACTIVATION
 
 class Net1(torch.nn.Module):
     
+    # ~ 3 * 10^7 parameters
+    
     def __init__(
         self,
         lay_1_sampler_weight,

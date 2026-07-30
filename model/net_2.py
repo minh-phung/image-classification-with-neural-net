@@ -5,6 +5,8 @@ from feature.activation import ACTIVATION
 
 class Net2(torch.nn.Module):
     
+    # ~ 2.6 * 10^7 parameters
+    
     def __init__(
         self,
         lay_1_sampler_weight,
@@ -22,7 +24,7 @@ class Net2(torch.nn.Module):
         super().__init__()
         
         #---------------------------------------------------
-        self.fc1 = torch.nn.Linear(3 * 64 * 64, 9 * 9)
+        self.fc1 = torch.nn.Linear(3 * 64 * 64, 45 * 45)
         
         print("layer 1 weight", SAMPLER[lay_1_sampler_weight])
         SAMPLER[lay_1_sampler_weight](self.fc1.weight)
@@ -34,7 +36,7 @@ class Net2(torch.nn.Module):
         self.act1 = ACTIVATION[lay_1_activation]
         
         #---------------------------------------------------
-        self.fc2 = torch.nn.Linear(9 * 9, 5 * 5)
+        self.fc2 = torch.nn.Linear(45 * 45, 30 * 30)
         
         print("layer 2 weight", SAMPLER[lay_2_sampler_weight])
         SAMPLER[lay_2_sampler_weight](self.fc2.weight)
@@ -46,7 +48,7 @@ class Net2(torch.nn.Module):
         self.act2 = ACTIVATION[lay_2_activation]
         
         #---------------------------------------------------
-        self.fc3 = torch.nn.Linear(5 * 5, 1)
+        self.fc3 = torch.nn.Linear(30 * 30, 1)
         
         print("layer 3 weight", SAMPLER[lay_3_sampler_weight])
         SAMPLER[lay_3_sampler_weight](self.fc3.weight)
@@ -65,6 +67,6 @@ class Net2(torch.nn.Module):
         
         x = self.fc3(x)
         
-        return x.squeeze(1)
+        return x.squeeze(1) 
         
         

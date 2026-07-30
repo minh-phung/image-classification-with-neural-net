@@ -10,7 +10,7 @@ color_plot = [
 
 def model_variation(dir_list, dir_out):
     
-    for each_variable in ["mean", "std"]:
+    for each_variable in ["median", "std"]:
         
         
         for i, each_dir in enumerate(dir_list):
@@ -24,7 +24,7 @@ def model_variation(dir_list, dir_out):
                     full_path = os.path.join(root, file)
                     all_dfs[j] = pd.read_csv(full_path)[["epoch","val_loss"]]
                     
-                variable = mean_std(all_dfs, each_variable)
+                variable = median_std(all_dfs, each_variable)
                 
                 plt.plot(
                     variable["epoch"], 
@@ -44,10 +44,10 @@ def model_variation(dir_list, dir_out):
     return
 
 
-def mean_std(array_df, variable):
+def median_std(array_df, variable):
     
     variable_dict = {
-        "mean": pd.DataFrame.mean,
+        "median": pd.DataFrame.median,
         "std" : pd.DataFrame.std
     }
     
