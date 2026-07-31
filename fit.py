@@ -26,6 +26,7 @@ class FitNet():
         self,
         x_train, y_train,
         x_val, y_val,
+        x_pred = None,
         loss = "BCE_with_logit"
     ):
         
@@ -60,6 +61,15 @@ class FitNet():
         ) 
         
         #---------------------------------------------------
+        if x_pred is None:
+            self.x_pred = None
+        else:
+            print("predict:", True)
+            self.x_pred = torch.from_numpy(x_pred).float().contiguous()
+            print(self.x_pred.shape)
+            
+        #---------------------------------------------------
+        
         print("Loss function", loss)
         self.loss_func = LOSS[loss]
         
@@ -85,7 +95,8 @@ class FitNet():
         net,
         n_stop = 10,
         epoch_limit = 50,
-        result_dir_name = "result/result"
+        result_dir_name = "result/result",
+        predict = False
     ):
         
         result_label = ["epoch", "train_loss", "val_loss"]
@@ -94,6 +105,7 @@ class FitNet():
         
         epoch_count = 0
         val_loss_queue = deque(maxlen = n_stop)
+        
         
         while(
             epoch_count < epoch_limit
@@ -104,7 +116,7 @@ class FitNet():
             val_loss = 0.0
             
             for i, (y_train, x_train) in enumerate(self.train_loader):
-            
+                
                 self.optimizer.zero_grad()
                 
                 f_x = net(x_train)
@@ -143,52 +155,17 @@ class FitNet():
         result_out = pd.DataFrame(result, columns = result_label)
         print(result_out)
         
+        
+        
         result_out.to_csv(
             result_dir_name + ".csv",
             index = False
         )
         
+        if self.x_pred is not None:
+            
+            return torch.sigmoid(net(self.x_pred))
+        
+        
     
     
-'''    
-    def predict(
-        self,
-        net,
-        x_predict,
-        epoch_count
-    ):
-        
-        predict_loader = torch.utils.data.DataLoader(
-            x_predict,
-            batch_size = 4,
-            shuffle = False
-        )
-        
-        prob_x_test = []
-        
-        
-        for i in range(epoch_count):
-            
-            for i, (y_train, x_train) in enumerate(self.train_loader):
-            
-                self.optimizer.zero_grad()
-                
-                f_x = net(x_train)
-                
-                loss = self.loss_func(f_x, y_train)
-                
-                loss.backward()
-                
-                self.optimizer.step()
-            
-        prob_x_test = []
-        
-        with torch.no_grad():
-            for y_val, x_val in predict_loader:
-                
-                prob_x = torch.sigmoid(net(x_val))
-                prob_x_test.append(prob_x)
-                
-        return torch.cat(prob_x_test, dim = 0)
-        
-'''

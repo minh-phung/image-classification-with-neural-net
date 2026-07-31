@@ -6,3 +6,12 @@ https://arxiv.org/abs/2305.04665
 
 https://arxiv.org/abs/1409.4842
 
+http://yann.lecun.com/exdb/publis/pdf/lecun-89e.pdf
+
+http://yann.lecun.com/exdb/publis/pdf/lecun-iscas-10.pdf
+
+https://www.di.ens.fr/~mallat/papiers/Bruna-Mallat-Pami-Scat.pdf
+
+https://arxiv.org/pdf/1409.1556
+
+https://cs231n.github.io/convolutional-networks/

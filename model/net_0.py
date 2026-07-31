@@ -5,6 +5,8 @@ from feature.sampler import SAMPLER
 
 class Net0(torch.nn.Module):
     
+    # input -> output
+    
     def __init__(
         self,
         lay_1_sampler_weight,

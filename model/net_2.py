@@ -5,6 +5,8 @@ from feature.activation import ACTIVATION
 
 class Net2(torch.nn.Module):
     
+    # input -> fc -> act -> fc -> output
+    
     # ~ 2.6 * 10^7 parameters
     
     def __init__(
