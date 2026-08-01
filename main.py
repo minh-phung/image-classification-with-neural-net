@@ -63,199 +63,58 @@ net_class = FitNet(
 )
 
 # ---------------------------------------------------------------------------
-
-net_0_dict = {
-    "lay_1_sampler_weight":     "xavier_uniform",
-    "lay_1_sampler_bias":       "zeros"
-}
 '''
 for each_seed in range(10):
-
-    net_0 = net_class.model("net_0", each_seed, net_0_dict)
-
-    net_class.train(
-        net_0, result_dir_name = "result/net_0/seed_" + str(each_seed)
+    
+    net_0 = net_class.model(
+        "net_0", 
+        each_seed,
+        {}
     )
-'''
-'''
-plot.model_variation(
-    ["result/net_0"],
-    dir_out = "result/plot/net_0"
-)
-'''
-# ---------------------------------------------------------------------------
-
-net_1_1_dict = {
-    "lay_1_sampler_weight":     "xavier_uniform",
-    "lay_1_sampler_bias":       "zeros",
-    "lay_1_activation":         "identity",
-    "lay_2_sampler_weight":     "xavier_uniform",
-    "lay_2_sampler_bias":       "zeros"
-}
-'''
-for each_seed in range(10):
-    
-    print("seed", each_seed)
-    
-    net_1_1 = net_class.model("net_1", each_seed, net_1_1_dict)
     
     net_class.train(
-        net_1_1, 
-        result_dir_name = "result/net_1/var_1/seed_" + str(each_seed)
+        net_0,
+        result_dir_name = "result/net_0/seed_" + str(each_seed)
     )
-'''
-#-----------------------------------------------
-#-----------------------------------------------
-
-net_1_2_1_dict = {
-    "lay_1_sampler_weight":     "xavier_uniform",
-    "lay_1_sampler_bias":       "zeros",
-    "lay_1_activation":         "sigmoid",
-    "lay_2_sampler_weight":     "xavier_uniform",
-    "lay_2_sampler_bias":       "zeros"
-}
-'''
-for each_seed in range(10):
-    
-    print("seed", each_seed)
-    
-    net_1_2_1 = net_class.model("net_1", each_seed, net_1_2_1_dict)
-    
-    net_class.train(
-        net_1_2_1,
-        result_dir_name = "result/net_1/var_2_1/seed_" + str(each_seed)
-    )
-'''
-#-----------------------------------------------
-
-net_1_2_2_dict = {
-    "lay_1_sampler_weight":     "xavier_normal",
-    "lay_1_sampler_bias":       "zeros",
-    "lay_1_activation":         "sigmoid",
-    "lay_2_sampler_weight":     "xavier_uniform",
-    "lay_2_sampler_bias":       "zeros"
-}
-'''
-for each_seed in range(10):
-    
-    print("seed", each_seed)
-    
-    net_1_2_2 = net_class.model("net_1", each_seed, net_1_2_2_dict)
-    
-    net_class.train(
-        net_1_2_2,
-        result_dir_name = "result/net_1/var_2_2/seed_" + str(each_seed)
-    ) 
-'''
-#-----------------------------------------------
-#-----------------------------------------------
-
-net_1_3_1_dict = {
-    "lay_1_sampler_weight":     "kaiming_uniform",
-    "lay_1_sampler_bias":       "constant",
-    "lay_1_activation":         "relu",
-    "lay_2_sampler_weight":     "xavier_uniform",
-    "lay_2_sampler_bias":       "zeros"
-}
-'''
-for each_seed in range(10):
-    
-    print("seed", each_seed)
-    
-    net_1_3_1 = net_class.model("net_1", each_seed, net_1_3_1_dict)
-    
-    net_class.train(
-        net_1_3_1,
-        result_dir_name = "result/net_1/var_3_1/seed_" + str(each_seed)
-    )
-'''
-#-----------------------------------------------
-
-net_1_3_2_dict = {
-    "lay_1_sampler_weight":     "kaiming_normal",
-    "lay_1_sampler_bias":       "constant",
-    "lay_1_activation":         "relu",
-    "lay_2_sampler_weight":     "xavier_uniform",
-    "lay_2_sampler_bias":       "zeros"
-}
-'''
-for each_seed in range(10):
-    
-    print("seed", each_seed)
-    
-    net_1_3_2 = net_class.model("net_1", each_seed, net_1_3_2_dict)
-    
-    net_class.train(
-        net_1_3_2,
-        result_dir_name = "result/net_1/var_3_2/seed_" + str(each_seed)
-    )
-'''
-'''
-plot.model_variation([
-    "result/net_1/var_1",
-    "result/net_1/var_2_1",
-    "result/net_1/var_2_2",
-    "result/net_1/var_3_1",
-    "result/net_1/var_3_2"],
-    dir_out = "result/plot/net_1"
-)
 '''
 
 # ---------------------------------------------------------------------------
+hidden_layer = [1, 2, 3]
 
-net_2_1_dict = {
-    "lay_1_sampler_weight":     "xavier_uniform",
-    "lay_1_sampler_bias":       "zeros",
-    "lay_1_activation":         "sigmoid",
-    "lay_2_sampler_weight":     "xavier_uniform",
-    "lay_2_sampler_bias":       "zeros",
-    "lay_2_activation":         "sigmoid",
-    "lay_3_sampler_weight":     "xavier_uniform",
-    "lay_3_sampler_bias":       "zeros"
-}
 '''
-for each_seed in range(10):
-    
-    print("seed", each_seed)
-    
-    net_2_1 = net_class.model("net_2", each_seed, net_2_1_dict)
-    
-    net_class.train(
-        net_2_1,
-        result_dir_name = "result/net_2/var_1/seed_" + str(each_seed)
-    )
-'''
-#-----------------------------------------------
+for each in hidden_layer:
 
-net_2_2_dict = {
-    "lay_1_sampler_weight":     "kaiming_normal",
-    "lay_1_sampler_bias":       "constant",
-    "lay_1_activation":         "relu",
-    "lay_2_sampler_weight":     "kaiming_normal",
-    "lay_2_sampler_bias":       "constant",
-    "lay_2_activation":         "relu",
-    "lay_3_sampler_weight":     "xavier_uniform",
-    "lay_3_sampler_bias":       "zeros"
-}
-'''
-for each_seed in range(10):
-    
-    print("seed", each_seed)
-    
-    net_2_2 = net_class.model("net_2", each_seed, net_2_2_dict)
-    
-    net_class.train(
-        net_2_2,
-        result_dir_name = "result/net_2/var_2/seed_" + str(each_seed)
-    )
-'''
-'''
-plot.model_variation([
-    "result/net_2/var_1",
-    "result/net_2/var_2"],
-    dir_out = "result/plot/net_2"
-)
-'''
+    net_1_0_dict = {
+        "lay_hidden_number":        each,
+        "lay_sampler_weight":       "xavier_uniform",
+        "lay_sampler_bias":         "zeros",
+        "lay_activation":           "sigmoid"
+    }
 
-# ---------------------------------------------------------------------------
+    for each_seed in range(10):
+        
+        print("\nseed", each_seed)
+        
+        net_1_0 = net_class.model(
+            "net_1",
+            each_seed,
+            net_1_0_dict
+        )
+        
+        dir_name = "result/net_1/var_0_hid_" + str(each)
+        
+        net_class.train(
+            net_1_0,
+            result_dir_name = dir_name + "/seed_" + str(each_seed)
+        )
 
+'''
+for each in hidden_layer:
+    
+    net_1_1_dict = {
+        "lay_hidden_number":        each,
+        "lay_sampler_weight":       "kaiming_uniform",
+        "lay_sampler_bias":         "constant",
+        "lay_activation":           "relu"
+    }
+    

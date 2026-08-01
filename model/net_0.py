@@ -8,9 +8,7 @@ class Net0(torch.nn.Module):
     # input -> output
     
     def __init__(
-        self,
-        lay_1_sampler_weight,
-        lay_1_sampler_bias
+        self
     ):
         
         print("\ninit - NET0")
@@ -19,13 +17,12 @@ class Net0(torch.nn.Module):
         
         self.fc1 = torch.nn.Linear(3 * 64 * 64, 1)
         
-        print("layer 1 weight", SAMPLER[lay_1_sampler_weight])
-        SAMPLER[lay_1_sampler_weight](self.fc1.weight)
+        print("layer 1 weight", "xavier_uniform")
+        SAMPLER["xavier_uniform"](self.fc1.weight)
         
-        print("layer 1 bias", SAMPLER[lay_1_sampler_bias])
-        SAMPLER[lay_1_sampler_bias](self.fc1.bias)
+        print("layer 1 bias", "zeros")
+        SAMPLER["zeros"](self.fc1.bias)
         
-        print("\n")
     
     def forward(self, x):
         

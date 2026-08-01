@@ -1,4 +1,5 @@
 import torch
+import numpy as np
 
 from feature.sampler import SAMPLER
 from feature.activation import ACTIVATION
@@ -7,15 +8,13 @@ class Net1(torch.nn.Module):
     
     # input -> fc -> output
     
-    # ~ 3 * 10^7 parameters
     
     def __init__(
         self,
-        lay_1_sampler_weight,
-        lay_1_sampler_bias,
-        lay_1_activation,
-        lay_2_sampler_weight,
-        lay_2_sampler_bias
+        lay_hidden_number,
+        lay_sampler_weight,
+        lay_sampler_bias,
+        lay_activation
     ):
         
         print("\ninit - NET1")
@@ -23,33 +22,58 @@ class Net1(torch.nn.Module):
         super().__init__()
         
         #---------------------------------------------------
-        self.fc1 = torch.nn.Linear(3 * 64 * 64, 50 * 50)
+        self.lay = [None]*lay_hidden_number
         
-        print("layer 1 weight", SAMPLER[lay_1_sampler_weight])
-        SAMPLER[lay_1_sampler_weight](self.fc1.weight)
+        input_count = 3*64*64
         
-        print("layer 1 bias", SAMPLER[lay_1_sampler_bias])
-        SAMPLER[lay_1_sampler_bias](self.fc1.bias)
+        lay_count = np.exp( np.linspace(
+            np.log(input_count),
+            0,
+            lay_hidden_number + 2
+        )[1:-1]).astype(int)
         
-        print("layer 1 activation", ACTIVATION[lay_1_activation])
-        self.act1 = ACTIVATION[lay_1_activation]
+        
+        lay_in = 3*64*64
+        
+        for i in range(lay_hidden_number):
+            print("\nlayer", i)
+            print("input", lay_in, "output", lay_count[i])
+            
+            self.lay[i] = torch.nn.Linear(
+                lay_in,
+                lay_count[i]
+            )
+            
+            print("weight", SAMPLER[lay_sampler_weight])
+            SAMPLER[lay_sampler_weight](self.lay[i].weight)
+            
+            print("bias", SAMPLER[lay_sampler_bias])
+            SAMPLER[lay_sampler_bias](self.lay[i].bias)
+            
+            
+            lay_in = lay_count[i]
         
         #---------------------------------------------------
         
-        self.fc2 = torch.nn.Linear(50 * 50, 1)
+        self.fc_last = torch.nn.Linear(lay_count[-1], 1)
         
-        print("layer 2 weight", SAMPLER[lay_2_sampler_weight])
-        SAMPLER[lay_2_sampler_weight](self.fc2.weight)
+        print("\nlayer last")
+        print("weight", "xavier_uniform")
+        SAMPLER["xavier_uniform"](self.fc_last.weight)
         
-        print("layer 2 bias", SAMPLER[lay_2_sampler_bias])
-        SAMPLER[lay_2_sampler_bias](self.fc2.bias)
+        print("bias", "zeros")
+        SAMPLER["zeros"](self.fc_last.bias)
+        
+        print("\n-------------\n")
+        
         
     def forward(self, x):
         
         x = x.view(-1, 3 * 64 * 64)
         
-        x = self.act1(self.fc1(x))
+        for each_lay in self.lay:
+            x = each_lay(x)
         
-        x = self.fc2(x)
+        x = self.fc_last(x)
         
         return x.squeeze(1)
