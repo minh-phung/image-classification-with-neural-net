@@ -1,73 +1,122 @@
 import torch
 
 from feature.sampler import SAMPLER
+import numpy as np
+
 from feature.activation import ACTIVATION
 
 class Net2(torch.nn.Module):
     
-    # input -> fc -> act -> fc -> output
+    # input -> [ conv -> relu ]*n -> fc*m -> output
+    # no padding
     
-    # ~ 2.6 * 10^7 parameters
+    # follow cs231 notation
     
     def __init__(
         self,
-        lay_1_sampler_weight,
-        lay_1_sampler_bias,
-        lay_1_activation,
-        lay_2_sampler_weight,
-        lay_2_sampler_bias,
-        lay_2_activation,
-        lay_3_sampler_weight,
-        lay_3_sampler_bias
+        lay_conv_number, # n
+        lay_conv_kernel,
+        lay_fc_number # m
     ):
         
         print("\ninit - Net2")
         
         super().__init__()
         
-        #---------------------------------------------------
-        self.fc1 = torch.nn.Linear(3 * 64 * 64, 45 * 45)
-        
-        print("layer 1 weight", SAMPLER[lay_1_sampler_weight])
-        SAMPLER[lay_1_sampler_weight](self.fc1.weight)
-        
-        print("layer 1 bias", SAMPLER[lay_1_sampler_bias])
-        SAMPLER[lay_1_sampler_bias](self.fc1.bias)
-        
-        print("layer 1 activation", ACTIVATION[lay_1_activation])
-        self.act1 = ACTIVATION[lay_1_activation]
+        input_count = 3*64*64
         
         #---------------------------------------------------
-        self.fc2 = torch.nn.Linear(45 * 45, 30 * 30)
+        in_channel = 3
+        out_channel = np.exp(np.log(input_count)/3).astype(int)
         
-        print("layer 2 weight", SAMPLER[lay_2_sampler_weight])
-        SAMPLER[lay_2_sampler_weight](self.fc2.weight)
+        width = 64
+                
+        self.lay_conv = [None]*lay_conv_number
+        self.lay_conv_act = ACTIVATION["relu"]
         
-        print("layer 2 bias", SAMPLER[lay_2_sampler_bias])
-        SAMPLER[lay_2_sampler_bias](self.fc2.bias)
+        for i in range(lay_conv_number):
+            
+            print("\nlayer - conv", i)
+            print("feature", out_channel)
+            
+            self.lay_conv[i] = torch.nn.Conv2d(
+                in_channels = in_channel,
+                out_channels = out_channel,
+                kernel_size = lay_conv_kernel,
+                stride = 0,
+                padding = 0,
+                groups = 1
+            )
+            
+            print("weight", "kaiming_uniform")
+            SAMPLER["kaiming_uniform"](self.lay_conv[i].weight)
+            
+            print("bias", "constant")
+            SAMPLER["constant"](self.lay_conv[i].bias)
+            
+            print("activation", self.lay_conv_act)
+            
+            width = ((width - lay_conv_kernel + 2*0) /(1)) + 1
+            
+            in_channel = out_channel
         
-        print("layer 2 activation", ACTIVATION[lay_2_activation])
-        self.act2 = ACTIVATION[lay_2_activation]
+        out_count = int(width**2 * out_channel)
         
         #---------------------------------------------------
-        self.fc3 = torch.nn.Linear(30 * 30, 1)
         
-        print("layer 3 weight", SAMPLER[lay_3_sampler_weight])
-        SAMPLER[lay_3_sampler_weight](self.fc3.weight)
+        in_feature = out_count
+        out_feature = np.exp(2*np.log(input_count)/3).astype(int)
         
-        print("layer 3 bias", SAMPLER[lay_3_sampler_bias])
-        SAMPLER[lay_3_sampler_bias](self.fc3.bias)
+        self.lay_fc = [None]*lay_fc_number
+        self.lay_fc_act = ACTIVATION["relu"]
+        
+        for i in range(lay_fc_number):
+            
+            print("\nlayer - fc", i)
+            print("input", in_feature, "output", out_feature)
+            
+            self.lay_fc[i] = torch.nn.Linear(
+                in_features = in_feature,
+                out_features = out_feature
+            )
+            
+            print("weight", "kaiming_uniform")
+            SAMPLER["kaiming_uniform"](self.lay_fc[i].weight)
+            
+            print("bias", "constant")
+            SAMPLER["constant"](self.lay_fc[i].bias)
+            
+            print("activation", self.lay_fc_act)
+            
+            in_feature = out_feature
+        
+        
+        #---------------------------------------------------
+        self.fc_last = torch.nn.Linear(out_feature, 1)
+        
+        print("\nlayer last")
+        print("weight", "xavier_uniform")
+        SAMPLER["xavier_uniform"](self.fc_last.weight)
+        
+        print("bias", "zeros")
+        SAMPLER["zeros"](self.fc_last.bias)
+        
+        print("\n-------------\n")
         
         
     def forward(self, x):
         
         x = x.view(-1, 3 * 64 * 64)
         
-        x = self.act1(self.fc1(x))
+        for each_conv in self.lay_conv:
+            
+            x = self.lay_conv_act(each_conv(x))
+            
+        for each_fc in self.lay_fc:
+            
+            x = self.lay_fc_act(each_fc(x))
         
-        x = self.act2(self.fc2(x))
-        
-        x = self.fc3(x)
+        x = self.fc_last(x)
         
         return x.squeeze(1) 
         

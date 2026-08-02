@@ -76,7 +76,12 @@ for each_seed in range(10):
         net_0,
         result_dir_name = "result/net_0/seed_" + str(each_seed)
     )
+
 '''
+plot.model_variation(
+    ["result/net_0"],
+    dir_out = "result/plot/net_0"
+)
 
 # ---------------------------------------------------------------------------
 hidden_layer = [1, 2, 3]
@@ -108,7 +113,7 @@ for each in hidden_layer:
             result_dir_name = dir_name + "/seed_" + str(each_seed)
         )
 
-'''
+
 for each in hidden_layer:
     
     net_1_1_dict = {
@@ -118,3 +123,48 @@ for each in hidden_layer:
         "lay_activation":           "relu"
     }
     
+    for each_seed in range(10):
+        
+        print("\nseed", each_seed)
+        
+        net_1_1 = net_class.model(
+            "net_1",
+            each_seed,
+            net_1_1_dict
+        )
+        
+        dir_name = "result/net_1/var_1_hid_" + str(each)
+        
+        net_class.train(
+            net_1_1,
+            result_dir_name = dir_name + "/seed_" + str(each_seed)
+        )
+'''
+
+plot.model_variation(
+    [
+        "result/net_1/var_0_hid_1",
+        "result/net_1/var_0_hid_2",
+        "result/net_1/var_0_hid_3",
+        "result/net_1/var_1_hid_1",
+        "result/net_1/var_1_hid_2",
+        "result/net_1/var_1_hid_3",
+    ],
+    dir_out = "result/plot/net_1"
+)
+
+
+# ---------------------------------------------------------------------------
+'''
+net_2_dict = {
+    "lay_conv_number":      2, # n
+    "lay_conv_kernel":      3,
+    "lay_fc_number":        2
+}
+
+net_2 = net_class.model(
+    "net_2",
+    0,
+    net_2_dict
+)
+'''

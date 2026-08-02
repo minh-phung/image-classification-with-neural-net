@@ -6,12 +6,12 @@ from feature.activation import ACTIVATION
 
 class Net1(torch.nn.Module):
     
-    # input -> fc -> output
+    # input -> [ fc -> activation ]*n -> output
     
     
     def __init__(
         self,
-        lay_hidden_number,
+        lay_hidden_number, # n
         lay_sampler_weight,
         lay_sampler_bias,
         lay_activation
@@ -23,6 +23,7 @@ class Net1(torch.nn.Module):
         
         #---------------------------------------------------
         self.lay = [None]*lay_hidden_number
+        self.activation = ACTIVATION[lay_activation]
         
         input_count = 3*64*64
         
@@ -50,6 +51,8 @@ class Net1(torch.nn.Module):
             print("bias", SAMPLER[lay_sampler_bias])
             SAMPLER[lay_sampler_bias](self.lay[i].bias)
             
+            print("activation", self.activation)
+            
             
             lay_in = lay_count[i]
         
@@ -72,7 +75,8 @@ class Net1(torch.nn.Module):
         x = x.view(-1, 3 * 64 * 64)
         
         for each_lay in self.lay:
-            x = each_lay(x)
+            
+            x = self.activation((each_lay(x)))
         
         x = self.fc_last(x)
         

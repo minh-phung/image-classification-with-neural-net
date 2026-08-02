@@ -94,7 +94,7 @@ class FitNet():
         self, 
         net,
         n_stop = 10,
-        epoch_limit = 50,
+        epoch_limit = 25,
         result_dir_name = "result/result",
         predict = False
     ):
@@ -109,7 +109,7 @@ class FitNet():
         
         while(
             epoch_count < epoch_limit
-            and not first_der_stop(val_loss_queue, n_stop)
+            and True #not first_der_stop(val_loss_queue, n_stop)
         ):
             
             train_loss = 0.0

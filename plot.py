@@ -3,6 +3,10 @@ import os
 import pandas as pd
 from functools import reduce
 
+plt.rcParams['figure.dpi'] = 300
+plt.rcParams['figure.figsize'] = (10, 6) 
+
+
 
 color_plot = [
     'b', 'g', 'r', 'c', 'm', 'y', 'k'
@@ -10,8 +14,7 @@ color_plot = [
 
 def model_variation(dir_list, dir_out):
     
-    for each_variable in ["median", "std"]:
-        
+    for each_variable in ["mean", "std"]:
         
         for i, each_dir in enumerate(dir_list):
             
@@ -47,7 +50,7 @@ def model_variation(dir_list, dir_out):
 def median_std(array_df, variable):
     
     variable_dict = {
-        "median": pd.DataFrame.median,
+        "mean": pd.DataFrame.mean,
         "std" : pd.DataFrame.std
     }
     
