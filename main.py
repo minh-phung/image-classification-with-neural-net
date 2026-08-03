@@ -77,12 +77,12 @@ for each_seed in range(10):
         result_dir_name = "result/net_0/seed_" + str(each_seed)
     )
 
-'''
+
 plot.model_variation(
     ["result/net_0"],
     dir_out = "result/plot/net_0"
 )
-
+'''
 # ---------------------------------------------------------------------------
 hidden_layer = [1, 2, 3]
 
@@ -139,7 +139,7 @@ for each in hidden_layer:
             net_1_1,
             result_dir_name = dir_name + "/seed_" + str(each_seed)
         )
-'''
+
 
 plot.model_variation(
     [
@@ -152,7 +152,7 @@ plot.model_variation(
     ],
     dir_out = "result/plot/net_1"
 )
-
+'''
 
 # ---------------------------------------------------------------------------
 '''
@@ -168,3 +168,49 @@ net_2 = net_class.model(
     net_2_dict
 )
 '''
+
+num_conv_lay = [1, 2, 3, 4]
+num_conv_kern = [3, 5, 7]
+num_fc_lay = [1, 2]
+
+for each_num_conv_lay in [num_conv_lay[0]]:
+    
+    for each_num_conv_kern in num_conv_kern:
+        
+        for each_num_fc_lay in num_fc_lay:
+            
+            print("\n--------------------------\n")
+            
+            print(each_num_conv_lay)
+            print(each_num_conv_kern)
+            print(each_num_fc_lay)
+            
+            for each_seed in range(10):
+                
+                print("seed", each_seed)
+                
+                net_2_dict = {
+                    "lay_conv_number":      each_num_conv_lay,
+                    "lay_conv_kernel":      each_num_conv_kern,
+                    "lay_fc_number":        each_num_fc_lay
+                }
+                
+                net_2 = net_class.model(
+                    "net_2",
+                    each_seed,
+                    net_2_dict
+                )
+                
+                dir_out = "result/net_2/var_" + str(each_num_conv_lay)
+                dir_out += "_" + str(each_num_conv_kern)
+                dir_out += "_" + str(each_num_fc_lay)
+                
+                net_class.train(
+                    net_2,
+                    epoch_limit = 50,
+                    result_dir_name = dir_out + "/seed_" + str(each_seed)
+                )
+                
+                
+                time.sleep(30)
+                

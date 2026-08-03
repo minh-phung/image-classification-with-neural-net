@@ -27,7 +27,7 @@ class Net2(torch.nn.Module):
         
         #---------------------------------------------------
         in_channel = 3
-        out_channel = np.exp(np.log(input_count)/3).astype(int)
+        out_channel = np.exp(np.log(input_count)/4).astype(int)
         
         width = 64
                 
@@ -38,12 +38,13 @@ class Net2(torch.nn.Module):
             
             print("\nlayer - conv", i)
             print("feature", out_channel)
+            print("kernel", lay_conv_kernel)
             
             self.lay_conv[i] = torch.nn.Conv2d(
                 in_channels = in_channel,
                 out_channels = out_channel,
                 kernel_size = lay_conv_kernel,
-                stride = 0,
+                stride = 1,
                 padding = 0,
                 groups = 1
             )
@@ -60,11 +61,11 @@ class Net2(torch.nn.Module):
             
             in_channel = out_channel
         
-        out_count = int(width**2 * out_channel)
+        self.out_conv = int(width**2 * out_channel)
         
         #---------------------------------------------------
         
-        in_feature = out_count
+        in_feature = self.out_conv
         out_feature = np.exp(2*np.log(input_count)/3).astype(int)
         
         self.lay_fc = [None]*lay_fc_number
@@ -106,15 +107,16 @@ class Net2(torch.nn.Module):
         
     def forward(self, x):
         
-        x = x.view(-1, 3 * 64 * 64)
-        
         for each_conv in self.lay_conv:
             
             x = self.lay_conv_act(each_conv(x))
-            
+        
+        x = x.view(-1, self.out_conv)
+        
         for each_fc in self.lay_fc:
             
             x = self.lay_fc_act(each_fc(x))
+            
         
         x = self.fc_last(x)
         
