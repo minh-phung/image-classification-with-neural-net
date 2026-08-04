@@ -169,11 +169,12 @@ net_2 = net_class.model(
 )
 '''
 
-num_conv_lay = [1, 2, 3, 4]
-num_conv_kern = [3, 5, 7]
-num_fc_lay = [1, 2]
+num_conv_lay =      [1, 2, 3, 4]
+num_conv_kern =     [3, 5, 7]
+num_fc_lay =        [1, 2]
 
-for each_num_conv_lay in [num_conv_lay[0]]:
+'''
+for each_num_conv_lay in [num_conv_lay[2]]:
     
     for each_num_conv_kern in num_conv_kern:
         
@@ -212,5 +213,47 @@ for each_num_conv_lay in [num_conv_lay[0]]:
                 )
                 
                 
-                time.sleep(30)
-                
+
+
+'''
+
+'''
+plot.model_variation(
+    [
+        "result/net_2/var_1_3_1",
+        "result/net_2/var_1_3_2",
+        "result/net_2/var_1_5_1",
+        "result/net_2/var_1_5_2",
+        "result/net_2/var_1_7_1",
+        "result/net_2/var_1_7_2",
+    ],
+    dir_out = "result/plot/net_2_var_1"
+)
+
+plot.model_variation(
+    [
+        "result/net_2/var_2_3_1",
+        "result/net_2/var_2_3_2",
+        "result/net_2/var_2_5_1",
+        "result/net_2/var_2_5_2",
+        "result/net_2/var_2_7_1",
+        "result/net_2/var_2_7_2",
+    ],
+    dir_out = "result/plot/net_2_var_2"
+)
+
+
+plot.model_variation(
+    [
+        "result/net_2/var_3_3_1",
+        "result/net_2/var_3_3_2",
+        "result/net_2/var_3_5_1",
+        "result/net_2/var_3_5_2",
+        "result/net_2/var_3_7_1",
+        "result/net_2/var_3_7_2",
+    ],
+    dir_out = "result/plot/net_2_var_3"
+)
+
+
+'''

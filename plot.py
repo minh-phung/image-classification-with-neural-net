@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import os
 import pandas as pd
 from functools import reduce
+import numpy as np
 
 plt.rcParams['figure.dpi'] = 300
 plt.rcParams['figure.figsize'] = (10, 6) 
@@ -30,13 +31,13 @@ def model_variation(dir_list, dir_out):
                 variable = median_std(all_dfs, each_variable)
                 
                 plt.plot(
-                    variable["epoch"], 
+                    np.log(variable["epoch"]), 
                     variable[each_variable],
                     label = os.path.basename(root),
                     color = color_plot[i]
                 )
             
-        plt.xlabel("epoch")
+        plt.xlabel("log(epoch)")
         plt.ylabel("validation loss - " + each_variable)
         plt.legend()
         
