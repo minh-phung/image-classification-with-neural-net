@@ -10,7 +10,16 @@ plt.rcParams['figure.figsize'] = (10, 6)
 
 
 color_plot = [
-    'b', 'g', 'r', 'c', 'm', 'y', 'k'
+    'tab:blue', 
+    'tab:orange', 
+    'tab:green', 
+    'tab:red', 
+    'tab:purple', 
+    'tab:brown', 
+    'tab:pink', 
+    'tab:gray',
+    'tab:olive',
+    'tab:cyan'
 ]
 
 def model_variation(dir_list, dir_out):

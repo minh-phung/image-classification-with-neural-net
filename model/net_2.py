@@ -10,8 +10,6 @@ class Net2(torch.nn.Module):
     # input -> [ conv -> relu ]*n -> fc*m -> output
     # no padding
     
-    # follow cs231 notation
-    
     def __init__(
         self,
         lay_conv_number, # n

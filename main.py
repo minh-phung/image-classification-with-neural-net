@@ -155,26 +155,13 @@ plot.model_variation(
 '''
 
 # ---------------------------------------------------------------------------
-'''
-net_2_dict = {
-    "lay_conv_number":      2, # n
-    "lay_conv_kernel":      3,
-    "lay_fc_number":        2
-}
-
-net_2 = net_class.model(
-    "net_2",
-    0,
-    net_2_dict
-)
-'''
 
 num_conv_lay =      [1, 2, 3, 4]
 num_conv_kern =     [3, 5, 7]
 num_fc_lay =        [1, 2]
 
 '''
-for each_num_conv_lay in [num_conv_lay[2]]:
+for each_num_conv_lay in [num_conv_lay[3]]:
     
     for each_num_conv_kern in num_conv_kern:
         
@@ -212,10 +199,41 @@ for each_num_conv_lay in [num_conv_lay[2]]:
                     result_dir_name = dir_out + "/seed_" + str(each_seed)
                 )
                 
-                
 
+
+each_num_conv_lay   = 4
+each_num_conv_kern  = 5
+each_num_fc_lay     = 2
+
+
+for each_seed in range(10):
+                
+    print("seed", each_seed)
+    
+    net_2_dict = {
+        "lay_conv_number":      each_num_conv_lay,
+        "lay_conv_kernel":      each_num_conv_kern,
+        "lay_fc_number":        each_num_fc_lay
+    }
+    
+    net_2 = net_class.model(
+        "net_2",
+        each_seed,
+        net_2_dict
+    )
+    
+    dir_out = "result/net_2/sub/var_" + str(each_num_conv_lay)
+    dir_out += "_" + str(each_num_conv_kern)
+    dir_out += "_" + str(each_num_fc_lay)
+    
+    net_class.train(
+        net_2,
+        epoch_limit = 75,
+        result_dir_name = dir_out + "/seed_" + str(each_seed)
+    )
 
 '''
+
 
 '''
 plot.model_variation(
@@ -223,8 +241,8 @@ plot.model_variation(
         "result/net_2/var_1_3_1",
         "result/net_2/var_1_3_2",
         "result/net_2/var_1_5_1",
-        "result/net_2/var_1_5_2",
-        "result/net_2/var_1_7_1",
+        "result/net_2/var_1_5_2", #
+        "result/net_2/var_1_7_1", #
         "result/net_2/var_1_7_2",
     ],
     dir_out = "result/plot/net_2_var_1"
@@ -234,19 +252,18 @@ plot.model_variation(
     [
         "result/net_2/var_2_3_1",
         "result/net_2/var_2_3_2",
-        "result/net_2/var_2_5_1",
+        "result/net_2/var_2_5_1", #
         "result/net_2/var_2_5_2",
-        "result/net_2/var_2_7_1",
+        "result/net_2/var_2_7_1", #
         "result/net_2/var_2_7_2",
     ],
     dir_out = "result/plot/net_2_var_2"
 )
 
-
 plot.model_variation(
     [
-        "result/net_2/var_3_3_1",
-        "result/net_2/var_3_3_2",
+        "result/net_2/var_3_3_1", #
+        "result/net_2/var_3_3_2", #
         "result/net_2/var_3_5_1",
         "result/net_2/var_3_5_2",
         "result/net_2/var_3_7_1",
@@ -255,5 +272,30 @@ plot.model_variation(
     dir_out = "result/plot/net_2_var_3"
 )
 
+plot.model_variation(
+    [
+        "result/net_2/var_4_3_1",
+        "result/net_2/var_4_3_2",
+        "result/net_2/var_4_5_1", #
+        "result/net_2/var_4_5_2", #
+        "result/net_2/var_4_7_1",
+        "result/net_2/var_4_7_2",
+    ],
+    dir_out = "result/plot/net_2_var_4"
+)
 
 '''
+
+plot.model_variation(
+    [
+        "result/net_2/sub/var_1_5_2",
+        "result/net_2/sub/var_1_7_1",
+        "result/net_2/sub/var_2_5_1",
+        "result/net_2/sub/var_2_7_1",
+        "result/net_2/sub/var_3_3_1",
+        "result/net_2/sub/var_3_3_2",
+        "result/net_2/sub/var_4_5_1",
+        "result/net_2/sub/var_4_5_2",
+    ],
+    dir_out = "result/plot/net_2_sub"
+)
