@@ -6,7 +6,7 @@ import numpy as np
 
 
 
-from model import Net0, Net1, Net2
+from model import Net0, Net1, Net2, Net3
 
 from feature import LOSS
 from feature import first_der as first_der_stop
@@ -17,7 +17,8 @@ from feature import first_der as first_der_stop
 model_dict = {
     "net_0": Net0,
     "net_1": Net1,
-    "net_2": Net2
+    "net_2": Net2,
+    "net_3": Net3
 }
 
 class FitNet():
@@ -82,6 +83,10 @@ class FitNet():
         
         net = model_dict[model](**kwarg_dict)
         
+        print("parameter list")
+        for name, param in net.named_parameters():
+            print(name, param.shape)
+        
         self.optimizer = torch.optim.SGD(
             net.parameters(),
             lr = 10e-5
@@ -106,6 +111,7 @@ class FitNet():
         epoch_count = 0
         val_loss_queue = deque(maxlen = n_stop)
         
+        print("\n\ntrain -----------")
         
         while(
             epoch_count < epoch_limit

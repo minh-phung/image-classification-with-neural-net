@@ -29,7 +29,7 @@ class Net2(torch.nn.Module):
         
         width = 64
                 
-        self.lay_conv = [None]*lay_conv_number
+        self.lay_conv = torch.nn.ModuleList()
         self.lay_conv_act = ACTIVATION["relu"]
         
         for i in range(lay_conv_number):
@@ -38,7 +38,7 @@ class Net2(torch.nn.Module):
             print("feature", out_channel)
             print("kernel", lay_conv_kernel)
             
-            self.lay_conv[i] = torch.nn.Conv2d(
+            conv = torch.nn.Conv2d(
                 in_channels = in_channel,
                 out_channels = out_channel,
                 kernel_size = lay_conv_kernel,
@@ -48,10 +48,12 @@ class Net2(torch.nn.Module):
             )
             
             print("weight", "kaiming_uniform")
-            SAMPLER["kaiming_uniform"](self.lay_conv[i].weight)
+            SAMPLER["kaiming_uniform"](conv.weight)
             
             print("bias", "constant")
-            SAMPLER["constant"](self.lay_conv[i].bias)
+            SAMPLER["constant"](conv.bias)
+
+            self.lay_conv.append(conv)
             
             print("activation", self.lay_conv_act)
             
@@ -66,7 +68,7 @@ class Net2(torch.nn.Module):
         in_feature = self.out_conv
         out_feature = np.exp(2*np.log(input_count)/3).astype(int)
         
-        self.lay_fc = [None]*lay_fc_number
+        self.lay_fc = torch.nn.ModuleList()
         self.lay_fc_act = ACTIVATION["relu"]
         
         for i in range(lay_fc_number):
@@ -74,16 +76,18 @@ class Net2(torch.nn.Module):
             print("\nlayer - fc", i)
             print("input", in_feature, "output", out_feature)
             
-            self.lay_fc[i] = torch.nn.Linear(
+            fc = torch.nn.Linear(
                 in_features = in_feature,
                 out_features = out_feature
             )
             
             print("weight", "kaiming_uniform")
-            SAMPLER["kaiming_uniform"](self.lay_fc[i].weight)
+            SAMPLER["kaiming_uniform"](fc.weight)
             
             print("bias", "constant")
-            SAMPLER["constant"](self.lay_fc[i].bias)
+            SAMPLER["constant"](fc.bias)
+            
+            self.lay_fc.append(fc)
             
             print("activation", self.lay_fc_act)
             
