@@ -119,7 +119,6 @@ class Net2(torch.nn.Module):
             
             x = self.lay_fc_act(each_fc(x))
             
-        
         x = self.fc_last(x)
         
         return x.squeeze(1) 

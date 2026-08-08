@@ -4,60 +4,47 @@ import pandas as pd
 from functools import reduce
 import numpy as np
 
-plt.rcParams['figure.dpi'] = 300
-plt.rcParams['figure.figsize'] = (10, 6) 
+plt.rcParams['figure.dpi'] = 120
+plt.rcParams['figure.figsize'] = (10, 7)
+
+colors = plt.get_cmap('tab10').colors
 
 
 
-color_plot = [
-    'tab:blue', 
-    'tab:orange', 
-    'tab:green', 
-    'tab:red', 
-    'tab:purple', 
-    'tab:brown', 
-    'tab:pink', 
-    'tab:gray',
-    'tab:olive',
-    'tab:cyan'
-]
-
-def model_variation(dir_list, dir_out):
+def variation(dir, dir_out, name):
     
-    for each_variable in ["mean", "std"]:
+    for root, dirs, files in os.walk(dir):
         
-        for i, each_dir in enumerate(dir_list):
+        for j, file in enumerate(files):
+    
+            full_path = os.path.join(root, file)
             
-            for root, dirs, files in os.walk(each_dir):
-                
-                all_dfs = [None] * len(files)
-                
-                for j, file in enumerate(files):
-                    
-                    full_path = os.path.join(root, file)
-                    all_dfs[j] = pd.read_csv(full_path)[["epoch","val_loss"]]
-                    
-                variable = median_std(all_dfs, each_variable)
-                
-                plt.plot(
-                    np.log(variable["epoch"]), 
-                    variable[each_variable],
-                    label = os.path.basename(root),
-                    color = color_plot[i]
-                )
+            df = pd.read_csv(full_path)[["epoch","val_loss"]]
             
-        plt.xlabel("log(epoch)")
-        plt.ylabel("validation loss - " + each_variable)
-        plt.legend()
-        
-        #plt.show()
-        plt.savefig(dir_out + "_" + each_variable +".png")
-        plt.close()
+            plt.plot(
+                np.log(df["epoch"].values),
+                df["val_loss"].values,
+                color = colors[j],
+                label = file[0:6]
+            )
+    
+    plt.ylim(0, 1.5)
+    
+    plt.xlabel("log(epoch)")
+    plt.ylabel("val loss")
+    
+    plt.legend()
+    
+    plt.savefig(dir_out + "/" + name + ".png")
+    
+    plt.close()
+    
     
     return
 
 
-def median_std(array_df, variable):
+def compute(array_df, variable):
+    
     
     variable_dict = {
         "mean": pd.DataFrame.mean,
@@ -86,3 +73,5 @@ def median_std(array_df, variable):
     result[variable] = out
     
     return result[["epoch", variable]]
+    
+

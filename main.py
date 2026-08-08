@@ -77,16 +77,20 @@ for each_seed in range(10):
         result_dir_name = "result/net_0/seed_" + str(each_seed)
     )
 
-
-plot.model_variation(
-    ["result/net_0"],
-    dir_out = "result/plot/net_0"
+'''
+'''
+plot.variation(
+    dir = "result/net_0",
+    dir_out = "result/plot",
+    name = "net_0"
 )
 '''
+
+
 # ---------------------------------------------------------------------------
 hidden_layer = [1, 2, 3]
 
-'''
+
 for each in hidden_layer:
 
     net_1_0_dict = {
@@ -95,7 +99,7 @@ for each in hidden_layer:
         "lay_sampler_bias":         "zeros",
         "lay_activation":           "sigmoid"
     }
-
+    '''
     for each_seed in range(10):
         
         print("\nseed", each_seed)
@@ -106,12 +110,22 @@ for each in hidden_layer:
             net_1_0_dict
         )
         
-        dir_name = "result/net_1/var_0_hid_" + str(each)
+        dir_name = "result/net_1/0_" + str(each)
         
         net_class.train(
             net_1_0,
             result_dir_name = dir_name + "/seed_" + str(each_seed)
         )
+    
+    
+    plot.variation(
+        dir = "result/net_1/0_" + str(each),
+        dir_out = "result/plot",
+        name = "net_1_0_" + str(each)
+    )
+    
+    '''
+    
 
 
 for each in hidden_layer:
@@ -122,7 +136,7 @@ for each in hidden_layer:
         "lay_sampler_bias":         "constant",
         "lay_activation":           "relu"
     }
-    
+    '''
     for each_seed in range(10):
         
         print("\nseed", each_seed)
@@ -133,26 +147,22 @@ for each in hidden_layer:
             net_1_1_dict
         )
         
-        dir_name = "result/net_1/var_1_hid_" + str(each)
+        dir_name = "result/net_1/1_" + str(each)
         
         net_class.train(
             net_1_1,
             result_dir_name = dir_name + "/seed_" + str(each_seed)
         )
+    
+    
+    plot.variation(
+        dir = "result/net_1/1_" + str(each),
+        dir_out = "result/plot",
+        name = "net_1_1_" + str(each)
+    )
+    
+    '''
 
-
-plot.model_variation(
-    [
-        "result/net_1/var_0_hid_1",
-        "result/net_1/var_0_hid_2",
-        "result/net_1/var_0_hid_3",
-        "result/net_1/var_1_hid_1",
-        "result/net_1/var_1_hid_2",
-        "result/net_1/var_1_hid_3",
-    ],
-    dir_out = "result/plot/net_1"
-)
-'''
 
 # ---------------------------------------------------------------------------
 
@@ -160,8 +170,8 @@ num_conv_lay =      [1, 2, 3]
 num_conv_kern =     [3, 5]
 num_fc_lay =        [1, 2]
 
-
-for each_num_conv_lay in [num_conv_lay[0]]:
+'''
+for each_num_conv_lay in [num_conv_lay[2]]:
     
     for each_num_conv_kern in num_conv_kern:
         
@@ -173,9 +183,9 @@ for each_num_conv_lay in [num_conv_lay[0]]:
             print(each_num_conv_kern)
             print(each_num_fc_lay)
             
-            for each_seed in range(10):
+            for each_seed in range(5):
                 
-                print("seed", each_seed)
+                print("\nseed", each_seed)
                 
                 net_2_dict = {
                     "lay_conv_number":      each_num_conv_lay,
@@ -189,37 +199,73 @@ for each_num_conv_lay in [num_conv_lay[0]]:
                     net_2_dict
                 )
                 
-                dir_out = "result/net_2/var_" + str(each_num_conv_lay)
-                dir_out += "_" + str(each_num_conv_kern)
-                dir_out += "_" + str(each_num_fc_lay)
+                name = str(each_num_conv_lay)
+                name += "_" + str(each_num_conv_kern)
+                name += "_" + str(each_num_fc_lay)
+                
+                dir_out = "result/net_2/" + name
                 
                 net_class.train(
                     net_2,
-                    epoch_limit = 25,
+                    epoch_limit = 75,
                     result_dir_name = dir_out + "/seed_" + str(each_seed)
                 )
                 
+            
+            plot.variation(
+                dir = dir_out,
+                dir_out = "result/plot",
+                name = "net_2_" + name
+            )
+            
+'''
 
 
 # ---------------------------------------------------------------------------
-'''
 
-net_3_dict = {
-    "lay_conv_number":  2,
-    "lay_conv_kernel":  3
-}
-
-net_3 = net_class.model(
-    "net_3",
-    0,
-    net_3_dict
-)
+num_conv_lay =      [1, 2, 3, 4, 5]
+num_conv_kern =     [3, 5]
 
 
-net_class.train(
-    net_3,
-    epoch_limit = 50,
-    result_dir_name = "result/net_3/seed_" + 0
-)
+for each_num_conv_lay in num_conv_lay:
+    
+    for each_num_conv_kern in num_conv_kern:
+        
+        print("\n-------------------")
+        
+        print("num conv lay", each_num_conv_lay)
+        print("num conv kern", each_num_conv_kern)
+        
+        
+        for each_seed in range(5):
+        
+            print("seed", each_seed)
+        
+            net_3_dict = {
+                "lay_conv_number":  each_num_conv_lay,
+                "lay_conv_kernel":  each_num_conv_kern
+            }
+            
+            net_3 = net_class.model(
+                "net_3",
+                each_seed,
+                net_3_dict
+            )
+            
+            name = str(each_num_conv_lay)
+            name += "_" + str(each_num_conv_kern)
+            
+            dir_out = "result/net_3/" + name 
+            
+            net_class.train(
+                net_3,
+                epoch_limit = 75,
+                result_dir_name = dir_out + "/seed_" + str(each_seed)
+            )
+        
+        plot.variation(
+            dir = dir_out,
+            dir_out = "result/plot",
+            name = "net_3_" + name
+        )
 
-'''

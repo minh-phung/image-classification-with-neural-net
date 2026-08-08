@@ -6,7 +6,7 @@ from feature.activation import ACTIVATION
 
 class Net3(torch.nn.Module):
     
-    # input -> [conv -> relu]*n  -> gap (feature) -> output
+    # input -> [conv -> relu]*n  -> conv(1*1), 1 feat -> gap -> output
     # 
     # gap: global average pooling
     
@@ -30,7 +30,7 @@ class Net3(torch.nn.Module):
         
         width = 64
                 
-        self.lay_conv = [None]*lay_conv_number
+        self.lay_conv = torch.nn.ModuleList()
         self.lay_conv_act = ACTIVATION["relu"]
         
         for i in range(lay_conv_number):
@@ -39,7 +39,7 @@ class Net3(torch.nn.Module):
             print("feature", out_channel)
             print("kernel", lay_conv_kernel)
             
-            self.lay_conv[i] = torch.nn.Conv2d(
+            conv = torch.nn.Conv2d(
                 in_channels = in_channel,
                 out_channels = out_channel,
                 kernel_size = lay_conv_kernel,
@@ -49,10 +49,12 @@ class Net3(torch.nn.Module):
             )
             
             print("weight", "kaiming_uniform")
-            SAMPLER["kaiming_uniform"](self.lay_conv[i].weight)
+            SAMPLER["kaiming_uniform"](conv.weight)
             
             print("bias", "constant")
-            SAMPLER["constant"](self.lay_conv[i].bias)
+            SAMPLER["constant"](conv.bias)
+
+            self.lay_conv.append(conv)
             
             print("activation", self.lay_conv_act)
             
@@ -60,21 +62,41 @@ class Net3(torch.nn.Module):
             
             in_channel = out_channel
         
-        self.out_conv = int(width**2 * out_channel)
+        #---------------------------------------------------
         
+        print("\nlayer - conv - 1*1")
         
+        self.lay_conv_feat = torch.nn.Conv2d(
+            in_channels = out_channel,
+            out_channels = 1,
+            kernel_size = 1
+        )
+        
+        print("weight", "xavier_uniform")
+        SAMPLER["xavier_uniform"](self.lay_conv_feat.weight)
+        
+        print("bias", "zeros")
+        SAMPLER["zeros"](self.lay_conv_feat.bias)
+        
+        #---------------------------------------------------
+        
+        print("\nlayer - pool average global")
+        
+        self.lay_pool_global = torch.nn.AvgPool2d(
+            kernel_size = int(width)
+        )
         
     
     def forward(self, x):
-        
-        print(x.shape)
         
         for each_conv in self.lay_conv:
             
             x = self.lay_conv_act(each_conv(x))
         
-        print(x.shape)
+        x = self.lay_conv_feat(x)
         
-        quit()
+        x = self.lay_pool_global(x)
         
-        return
+        return x.squeeze((1, 2, 3))
+        
+        

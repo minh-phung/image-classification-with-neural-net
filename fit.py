@@ -83,7 +83,7 @@ class FitNet():
         
         net = model_dict[model](**kwarg_dict)
         
-        print("parameter list")
+        print("\nparameter list")
         for name, param in net.named_parameters():
             print(name, param.shape)
         
