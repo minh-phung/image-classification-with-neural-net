@@ -90,6 +90,7 @@ plot.variation(
 # ---------------------------------------------------------------------------
 hidden_layer = [1, 2, 3]
 
+'''
 
 for each in hidden_layer:
 
@@ -99,7 +100,7 @@ for each in hidden_layer:
         "lay_sampler_bias":         "zeros",
         "lay_activation":           "sigmoid"
     }
-    '''
+    
     for each_seed in range(10):
         
         print("\nseed", each_seed)
@@ -124,10 +125,10 @@ for each in hidden_layer:
         name = "net_1_0_" + str(each)
     )
     
-    '''
+'''
     
 
-
+'''
 for each in hidden_layer:
     
     net_1_1_dict = {
@@ -136,7 +137,7 @@ for each in hidden_layer:
         "lay_sampler_bias":         "constant",
         "lay_activation":           "relu"
     }
-    '''
+    
     for each_seed in range(10):
         
         print("\nseed", each_seed)
@@ -161,7 +162,7 @@ for each in hidden_layer:
         name = "net_1_1_" + str(each)
     )
     
-    '''
+'''
 
 
 # ---------------------------------------------------------------------------
@@ -226,7 +227,7 @@ for each_num_conv_lay in [num_conv_lay[2]]:
 num_conv_lay =      [1, 2, 3, 4, 5]
 num_conv_kern =     [3, 5]
 
-
+'''
 for each_num_conv_lay in num_conv_lay:
     
     for each_num_conv_kern in num_conv_kern:
@@ -268,4 +269,6 @@ for each_num_conv_lay in num_conv_lay:
             dir_out = "result/plot",
             name = "net_3_" + name
         )
+'''
 
+# ---------------------------------------------------------------------------
