@@ -272,3 +272,22 @@ for each_num_conv_lay in num_conv_lay:
 '''
 
 # ---------------------------------------------------------------------------
+
+net_4_dict = {
+    "lay_conv_number":      3,
+    "lay_conv_kernel":      3,
+    "lay_pool_number":      2,
+    "lay_fc_number":        1
+}
+ 
+net_4 = net_class.model(
+    "net_4",
+    0,
+    net_4_dict
+)
+ 
+net_class.train(
+    net_4,
+    epoch_limit = 10,
+    result_dir_name = None
+)

@@ -1,13 +1,13 @@
 import torch
-
-from feature.sampler import SAMPLER
 import numpy as np
 
+from feature.sampler import SAMPLER
 from feature.activation import ACTIVATION
+
 
 class Net2(torch.nn.Module):
     
-    # input -> [ conv -> relu ]*n -> fc*m -> output
+    # input -> [conv -> relu]*n -> [fc -> relu]*m  -> output
     # no padding
     
     def __init__(
