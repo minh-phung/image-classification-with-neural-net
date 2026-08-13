@@ -227,10 +227,10 @@ for each_num_conv_lay in [num_conv_lay[2]]:
 num_conv_lay =      [1, 2, 3, 4, 5]
 num_conv_kern =     [3, 5]
 
-'''
-for each_num_conv_lay in num_conv_lay:
+
+for each_num_conv_lay in num_conv_lay[3:]:
     
-    for each_num_conv_kern in num_conv_kern:
+    for each_num_conv_kern in [num_conv_kern[0]]:
         
         print("\n-------------------")
         
@@ -260,19 +260,22 @@ for each_num_conv_lay in num_conv_lay:
             
             net_class.train(
                 net_3,
-                epoch_limit = 75,
+                epoch_limit = 300,
                 result_dir_name = dir_out + "/seed_" + str(each_seed)
             )
+            
+        
         
         plot.variation(
             dir = dir_out,
             dir_out = "result/plot",
             name = "net_3_" + name
         )
-'''
+        
+
 
 # ---------------------------------------------------------------------------
-
+'''
 net_4_dict = {
     "lay_conv_number":      3,
     "lay_conv_kernel":      3,
@@ -291,3 +294,4 @@ net_class.train(
     epoch_limit = 10,
     result_dir_name = None
 )
+'''
