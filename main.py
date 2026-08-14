@@ -227,7 +227,7 @@ for each_num_conv_lay in [num_conv_lay[2]]:
 num_conv_lay =      [1, 2, 3, 4, 5]
 num_conv_kern =     [3, 5]
 
-
+'''
 for each_num_conv_lay in num_conv_lay[3:]:
     
     for each_num_conv_kern in [num_conv_kern[0]]:
@@ -271,27 +271,69 @@ for each_num_conv_lay in num_conv_lay[3:]:
             dir_out = "result/plot",
             name = "net_3_" + name
         )
-        
+'''   
 
 
 # ---------------------------------------------------------------------------
-'''
-net_4_dict = {
-    "lay_conv_number":      3,
-    "lay_conv_kernel":      3,
-    "lay_pool_number":      2,
-    "lay_fc_number":        1
-}
- 
-net_4 = net_class.model(
-    "net_4",
-    0,
-    net_4_dict
-)
- 
-net_class.train(
-    net_4,
-    epoch_limit = 10,
-    result_dir_name = None
-)
-'''
+
+num_conv_lay =      [1, 2, 3]
+num_conv_kern =     [3, 5]
+num_pool_lay =      [1, 2, 3]
+num_fc_lay =        [1, 2]
+
+
+
+for each_num_conv_lay in [num_conv_lay[0]]:
+    
+    for each_num_conv_kern in num_conv_kern:
+        
+        for each_num_pool_lay in num_pool_lay:
+            
+            for each_num_fc_lay in num_fc_lay:
+                
+                print("\n-------------------\n")
+                print("num_conv_lay", each_num_conv_lay)
+                print("num_conv_kern", each_num_conv_kern)
+                print("num_pool_lay", each_num_pool_lay)
+                print("num_fc_lay", each_num_fc_lay)
+                print("\n-------------------\n")
+                
+                for each_seed in range(5):
+                    
+                    print("\neach seed", each_seed)
+                    
+                    net_4_dict = {
+                        "lay_conv_number":      each_num_conv_lay,
+                        "lay_conv_kernel":      each_num_conv_kern,
+                        "lay_pool_number":      each_num_pool_lay,
+                        "lay_fc_number":        each_num_fc_lay
+                    }
+                    
+                    net_4 = net_class.model(
+                        "net_4",
+                        each_seed,
+                        net_4_dict
+                    )
+                    
+                    name = str(each_num_conv_lay)
+                    name += "_" + str(each_num_conv_kern)
+                    name += "_" + str(each_num_pool_lay)
+                    name += "_" + str(each_num_fc_lay)
+                    
+                    dir_out = "result/net_4/" + name
+                    
+                    net_class.train(
+                        net_4,
+                        epoch_limit = 100,
+                        result_dir_name = dir_out + "/seed_" + str(each_seed) 
+                    )
+                    
+                    time.sleep(10)
+                    
+                
+                
+                plot.variation(
+                    dir = dir_out,
+                    dir_out = "result/plot",
+                    name = "net_4_" + name
+                )

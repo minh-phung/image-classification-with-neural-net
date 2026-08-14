@@ -18,7 +18,7 @@ class Net4(torch.nn.Module):
         lay_conv_number, #n
         lay_conv_kernel,
         lay_pool_number, #m
-        lay_fc_number
+        lay_fc_number #k
     ):
         
         print("\ninit - Net4")
