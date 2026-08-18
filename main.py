@@ -283,13 +283,13 @@ num_fc_lay =        [1, 2]
 
 
 
-for each_num_conv_lay in [num_conv_lay[1]]:
+for each_num_conv_lay in [num_conv_lay[2]]:
     
     for each_num_conv_kern in num_conv_kern:
         
         for each_num_pool_lay in num_pool_lay:
             
-            for each_num_fc_lay in num_fc_lay:
+            for each_num_fc_lay in [num_fc_lay[0]]:
                 
                 print("\n-------------------\n")
                 print("num_conv_lay", each_num_conv_lay)
@@ -324,7 +324,7 @@ for each_num_conv_lay in [num_conv_lay[1]]:
                     
                     net_class.train(
                         net_4,
-                        epoch_limit = 150,
+                        epoch_limit = 100,
                         result_dir_name = dir_out + "/seed_" + str(each_seed) 
                     )
                     
