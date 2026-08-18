@@ -63,7 +63,7 @@ class Net4(torch.nn.Module):
             
             in_channel = out_channel
             
-        print("activation", self.lay_conv_act)
+            print("activation", self.lay_conv_act)
         
         #---------------------------------------------------
         

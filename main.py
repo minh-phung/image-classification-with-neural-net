@@ -338,3 +338,23 @@ for each_num_conv_lay in [num_conv_lay[2]]:
                     name = "net_4_" + name
                 )
 '''
+
+# ---------------------------------------------------------------------------
+
+net_5_dict = {
+    "lay_conv_number"   :   2, #n
+    "lay_conv_kernel"   :   3,
+    "lay_pool_number"   :   2 #m
+}
+
+net_5 = net_class.model(
+    "net_5",
+    0,
+    net_5_dict
+)
+
+net_class.train(
+    net_5,
+    epoch_limit = 5,
+    result_dir_name = None
+)
