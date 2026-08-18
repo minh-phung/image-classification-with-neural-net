@@ -228,9 +228,9 @@ num_conv_lay =      [1, 2, 3, 4, 5]
 num_conv_kern =     [3, 5]
 
 '''
-for each_num_conv_lay in [num_conv_lay[3]]:
+for each_num_conv_lay in [num_conv_lay[4]]:
     
-    for each_num_conv_kern in [num_conv_kern[1]]:
+    for each_num_conv_kern in [num_conv_kern[0]]:
         
         print("\n-------------------")
         
@@ -271,8 +271,8 @@ for each_num_conv_lay in [num_conv_lay[3]]:
             dir_out = "result/plot",
             name = "net_3_" + name
         )
-'''
 
+'''
 
 # ---------------------------------------------------------------------------
 
@@ -282,7 +282,7 @@ num_pool_lay =      [1, 2, 3]
 num_fc_lay =        [1, 2]
 
 
-
+'''
 for each_num_conv_lay in [num_conv_lay[2]]:
     
     for each_num_conv_kern in [num_conv_kern[1]]:
@@ -337,4 +337,4 @@ for each_num_conv_lay in [num_conv_lay[2]]:
                     dir_out = "result/plot",
                     name = "net_4_" + name
                 )
-                
+'''
