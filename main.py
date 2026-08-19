@@ -2,6 +2,8 @@ import h5py
 import numpy as np
 from sklearn.model_selection import train_test_split
 import time
+from pathlib import Path
+
 
 from fit import FitNet
 import plot
@@ -341,20 +343,60 @@ for each_num_conv_lay in [num_conv_lay[2]]:
 
 # ---------------------------------------------------------------------------
 
-net_5_dict = {
-    "lay_conv_number"   :   2, #n
-    "lay_conv_kernel"   :   3,
-    "lay_pool_number"   :   2 #m
-}
 
-net_5 = net_class.model(
-    "net_5",
-    0,
-    net_5_dict
-)
+num_conv_lay =      [1, 2, 3, 4]
+num_conv_kern =     [3, 5]
+num_pool_lay =      [1, 2, 3]
 
-net_class.train(
-    net_5,
-    epoch_limit = 5,
-    result_dir_name = None
-)
+
+
+for each_num_conv_lay in num_conv_lay:
+    
+    for each_num_conv_kern in num_conv_kern:
+        
+        for each_num_pool_lay in num_pool_lay:
+            
+            print("\n-------------------\n")
+            
+            print(each_num_conv_lay)
+            print(each_num_conv_kern)
+            print(each_num_pool_lay)
+            
+            print("\n-------------------\n")
+            
+            for each_seed in range(5):
+                
+                net_5_dict = {
+                    "lay_conv_number"   :   each_num_conv_lay,
+                    "lay_conv_kernel"   :   each_num_conv_kern,
+                    "lay_pool_number"   :   each_num_pool_lay
+                }
+                
+                net_5 = net_class.model(
+                    "net_5",
+                    each_seed,
+                    net_5_dict
+                )
+                
+                name = str(each_num_conv_lay)
+                name += "_" + str(each_num_conv_kern)
+                name += "_" + str(each_num_pool_lay)
+                
+                dir_out = "result/net_5/" + name
+                
+                Path(dir_out).mkdir(parents = True, exist_ok = True)
+                
+                net_class.train(
+                    net_5,
+                    epoch_limit = 2,
+                    result_dir_name = dir_out + "/seed_" + str(each_seed)  
+                )
+
+
+            plot.variation(
+                dir = dir_out,
+                dir_out = "result/plot",
+                name = "net_5_" + name
+            )
+            
+            
