@@ -350,11 +350,11 @@ num_pool_lay =      [1, 2, 3]
 
 
 
-for each_num_conv_lay in num_conv_lay[2:]:
+for each_num_conv_lay in num_conv_lay[1:]:
     
     for each_num_conv_kern in num_conv_kern:
         
-        for each_num_pool_lay in num_pool_lay:
+        for each_num_pool_lay in num_pool_lay[1:]:
             
             print("\n-------------------\n")
             
@@ -364,7 +364,7 @@ for each_num_conv_lay in num_conv_lay[2:]:
             
             print("\n-------------------\n")
             
-            for each_seed in range(5):
+            for each_seed in range(3):
                 
                 print("seed", each_seed)
                 
@@ -388,16 +388,21 @@ for each_num_conv_lay in num_conv_lay[2:]:
                 
                 Path(dir_out).mkdir(parents = True, exist_ok = True)
                 
-		full_dir = dir_out + "/seed_" + str(each_seed)
-		full_dir += "_d1" 
+                full_dir = dir_out + "/seed_" + str(each_seed)
+                full_dir += "_d0" 
 
                 net_class.train(
                     net_5,
-                    epoch_limit = 100,
+                    epoch_limit = 200,
                     result_dir_name = full_dir   
                 )
-
-
-
+            
+            '''
+            plot.variation(
+                dir = dir_out,
+                dir_out = "result/plot",
+                name = "net_4_" + name
+            )
+            '''
             
             
