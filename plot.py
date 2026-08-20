@@ -16,7 +16,9 @@ def variation(dir, dir_out, name):
     for root, dirs, files in os.walk(dir):
         
         for j, file in enumerate(files):
-    
+            
+            print(file)
+            
             full_path = os.path.join(root, file)
             
             df = pd.read_csv(full_path)[["epoch","val_loss"]]
@@ -25,7 +27,7 @@ def variation(dir, dir_out, name):
                 np.log(df["epoch"].values),
                 df["val_loss"].values,
                 color = colors[j],
-                label = file[0:6]
+                label = file[0:-4]
             )
     
     plt.ylim(0, 1.5)

@@ -373,37 +373,40 @@ for each_num_conv_lay in num_conv_lay[1:]:
                     "lay_conv_kernel"   :   each_num_conv_kern,
                     "lay_pool_number"   :   each_num_pool_lay
                 }
-                
+                '''
                 net_5 = net_class.model(
                     "net_5",
                     each_seed,
                     net_5_dict
                 )
-                
+                '''
                 name = str(each_num_conv_lay)
                 name += "_" + str(each_num_conv_kern)
                 name += "_" + str(each_num_pool_lay)
                 
-                dir_out = "result/net_5/" + name
                 
+                dir_out = "result/net_5/" + name
+                '''
                 Path(dir_out).mkdir(parents = True, exist_ok = True)
                 
                 full_dir = dir_out + "/seed_" + str(each_seed)
                 full_dir += "_d1" 
-
+                
                 net_class.train(
                     net_5,
                     epoch_limit = 200,
                     result_dir_name = full_dir   
                 )
                 time.sleep(10)
+                '''
+                
+                
             
-            '''
             plot.variation(
                 dir = dir_out,
                 dir_out = "result/plot",
                 name = "net_5_" + name
             )
-            '''
+            
             
             
