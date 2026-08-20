@@ -350,7 +350,7 @@ num_pool_lay =      [1, 2, 3]
 
 
 
-for each_num_conv_lay in num_conv_lay:
+for each_num_conv_lay in num_conv_lay[2:]:
     
     for each_num_conv_kern in num_conv_kern:
         
@@ -365,6 +365,8 @@ for each_num_conv_lay in num_conv_lay:
             print("\n-------------------\n")
             
             for each_seed in range(5):
+                
+                print("seed", each_seed)
                 
                 net_5_dict = {
                     "lay_conv_number"   :   each_num_conv_lay,
@@ -388,7 +390,7 @@ for each_num_conv_lay in num_conv_lay:
                 
                 net_class.train(
                     net_5,
-                    epoch_limit = 2,
+                    epoch_limit = 100,
                     result_dir_name = dir_out + "/seed_" + str(each_seed)  
                 )
 
