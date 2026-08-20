@@ -396,12 +396,14 @@ for each_num_conv_lay in num_conv_lay[1:]:
                     epoch_limit = 200,
                     result_dir_name = full_dir   
                 )
+                
+                time.sleep(10)
             
             '''
             plot.variation(
                 dir = dir_out,
                 dir_out = "result/plot",
-                name = "net_4_" + name
+                name = "net_5_" + name
             )
             '''
             
