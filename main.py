@@ -388,17 +388,16 @@ for each_num_conv_lay in num_conv_lay[2:]:
                 
                 Path(dir_out).mkdir(parents = True, exist_ok = True)
                 
+		full_dir = dir_out + "/seed_" + str(each_seed)
+		full_dir += "_d1" 
+
                 net_class.train(
                     net_5,
                     epoch_limit = 100,
-                    result_dir_name = dir_out + "/seed_" + str(each_seed)  
+                    result_dir_name = full_dir   
                 )
 
 
-            plot.variation(
-                dir = dir_out,
-                dir_out = "result/plot",
-                name = "net_5_" + name
-            )
+
             
             
