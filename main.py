@@ -300,7 +300,17 @@ for each_num_conv_lay in num_conv_lay:
                 print("num_fc_lay", each_num_fc_lay)
                 print("\n-------------------\n")
                 
-                for each_seed in range(5,7):
+                name = str(each_num_conv_lay)
+                name += "_" + str(each_num_conv_kern)
+                name += "_" + str(each_num_pool_lay)
+                name += "_" + str(each_num_fc_lay)
+                
+                dir_out = "result/net_4/" + name
+                
+                Path(dir_out).mkdir(parents = True, exist_ok = True)
+                
+                
+                for each_seed in range(7):
                     
                     print("\neach seed", each_seed)
                     
@@ -317,23 +327,15 @@ for each_num_conv_lay in num_conv_lay:
                         net_4_dict
                     )
                     
-                    name = str(each_num_conv_lay)
-                    name += "_" + str(each_num_conv_kern)
-                    name += "_" + str(each_num_pool_lay)
-                    name += "_" + str(each_num_fc_lay)
-                    
-                    dir_out = "result/net_4/" + name
-                    
-                    Path(dir_out).mkdir(parents = True, exist_ok = True)
                     
                     net_class.train(
                         net_4,
-                        epoch_limit = 100,
+                        epoch_limit = 200,
                         result_dir_name = dir_out + "/seed_" + str(each_seed) 
                     )
                     
                     time.sleep(10)
-                    
+                
                 
                 
                 plot.variation(
@@ -341,6 +343,8 @@ for each_num_conv_lay in num_conv_lay:
                     dir_out = "result/plot",
                     name = "net_4_" + name
                 )
+
+
 
 
 # ---------------------------------------------------------------------------
@@ -366,7 +370,19 @@ for each_num_conv_lay in num_conv_lay[1:]:
             
             print("\n-------------------\n")
             
-            for each_seed in range(5):
+            
+            name = str(each_num_conv_lay)
+            name += "_" + str(each_num_conv_kern)
+            name += "_" + str(each_num_pool_lay)
+            
+            dir_out = "result/net_5/" + name
+            
+            Path(dir_out).mkdir(parents = True, exist_ok = True)
+            
+            full_dir = dir_out + "/seed_" + str(each_seed)
+            
+            
+            for each_seed in range(5, 7):
                 
                 print("seed", each_seed)
                 
@@ -382,25 +398,13 @@ for each_num_conv_lay in num_conv_lay[1:]:
                     net_5_dict
                 )
                 
-                name = str(each_num_conv_lay)
-                name += "_" + str(each_num_conv_kern)
-                name += "_" + str(each_num_pool_lay)
-                
-                
-                dir_out = "result/net_5/" + name
-                
-                Path(dir_out).mkdir(parents = True, exist_ok = True)
-                
-                full_dir = dir_out + "/seed_" + str(each_seed)
                 
                 net_class.train(
                     net_5,
-                    epoch_limit = 200,
+                    epoch_limit = 500,
                     result_dir_name = full_dir   
                 )
                 time.sleep(10)
-                
-                
                 
             
             plot.variation(
@@ -409,4 +413,5 @@ for each_num_conv_lay in num_conv_lay[1:]:
                 name = "net_5_" + name
             )
             
-''' 
+
+'''
