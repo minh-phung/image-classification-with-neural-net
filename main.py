@@ -284,6 +284,8 @@ num_pool_lay =      [1, 2, 3]
 num_fc_lay =        [1, 2]
 
 
+time_start = time.time()
+
 
 for each_num_conv_lay in num_conv_lay:
     
@@ -291,7 +293,7 @@ for each_num_conv_lay in num_conv_lay:
         
         for each_num_pool_lay in num_pool_lay:
             
-            for each_num_fc_lay in num_fc_lay:
+            for each_num_fc_lay in [num_fc_lay[0]]:
                 
                 print("\n-------------------\n")
                 print("num_conv_lay", each_num_conv_lay)
@@ -333,6 +335,8 @@ for each_num_conv_lay in num_conv_lay:
                         epoch_limit = 200,
                         result_dir_name = dir_out + "/seed_" + str(each_seed) 
                     )
+                    
+                    print(time.time() - time_start)
                     
                     time.sleep(10)
                 
