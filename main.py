@@ -327,7 +327,8 @@ for each_num_conv_lay in num_conv_lay[1:]:
                     net_4 = net_class.model(
                         "net_4",
                         each_seed,
-                        net_4_dict
+                        net_4_dict,
+                        learn_rate = 10e-6
                     )
                     
                     
