@@ -286,7 +286,7 @@ num_fc_lay =        [1, 2]
 
 
 
-
+'''
 for each_num_conv_lay in [num_conv_lay[2]]:
     
     for each_num_conv_kern in [num_conv_kern[1]]:
@@ -312,7 +312,7 @@ for each_num_conv_lay in [num_conv_lay[2]]:
                 Path(dir_out).mkdir(parents = True, exist_ok = True)
                 
                 
-                for each_seed in range(0, 1):
+                for each_seed in range(7):
                     
                     print("\neach seed", each_seed)
                     
@@ -341,14 +341,14 @@ for each_num_conv_lay in [num_conv_lay[2]]:
                     time.sleep(10)
                     
                 
-                '''
+                
                 plot.variation(
                     dir = dir_out,
                     dir_out = "result/plot",
                     name = "net_4_" + name
                 )
-                '''
-
+                
+'''
 
 
 
