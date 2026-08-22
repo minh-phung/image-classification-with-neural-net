@@ -284,14 +284,15 @@ num_pool_lay =      [1, 2, 3]
 num_fc_lay =        [1, 2]
 
 
+# num_conv_layer > 1 && num_pool_lay > 1: learn_rate 10e-6
 
 
-'''
-for each_num_conv_lay in [num_conv_lay[2]]:
+
+for each_num_conv_lay in num_conv_lay[1:]:
     
-    for each_num_conv_kern in [num_conv_kern[1]]:
+    for each_num_conv_kern in num_conv_kern:
         
-        for each_num_pool_lay in num_pool_lay:
+        for each_num_pool_lay in num_pool_lay[1:]:
             
             for each_num_fc_lay in [num_fc_lay[0]]:
                 
@@ -312,7 +313,7 @@ for each_num_conv_lay in [num_conv_lay[2]]:
                 Path(dir_out).mkdir(parents = True, exist_ok = True)
                 
                 
-                for each_seed in range(7):
+                for each_seed in range(0,3): # 3,7
                     
                     print("\neach seed", each_seed)
                     
@@ -337,18 +338,17 @@ for each_num_conv_lay in [num_conv_lay[2]]:
                     )
                     
                     
-                    
                     time.sleep(10)
                     
                 
-                
+                '''
                 plot.variation(
                     dir = dir_out,
                     dir_out = "result/plot",
                     name = "net_4_" + name
                 )
-                
-'''
+                '''
+
 
 
 

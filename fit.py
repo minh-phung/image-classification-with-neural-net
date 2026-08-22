@@ -79,7 +79,12 @@ class FitNet():
         
     
     
-    def model(self, model, seed, kwarg_dict):
+    def model(
+        self, 
+        model, 
+        seed,
+        kwarg_dict,
+        learn_rate = 10e-5):
         
         torch.manual_seed(seed)
         
@@ -91,7 +96,7 @@ class FitNet():
         
         self.optimizer = torch.optim.SGD(
             net.parameters(),
-            lr = 10e-5
+            lr = learn_rate
         )
         
         return net
