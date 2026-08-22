@@ -313,7 +313,7 @@ for each_num_conv_lay in num_conv_lay[1:]:
                 Path(dir_out).mkdir(parents = True, exist_ok = True)
                 
                 
-                for each_seed in range(0,3): # 3,7
+                for each_seed in range(3, 7): # 3,7
                     
                     print("\neach seed", each_seed)
                     
@@ -327,14 +327,15 @@ for each_num_conv_lay in num_conv_lay[1:]:
                     net_4 = net_class.model(
                         "net_4",
                         each_seed,
-                        net_4_dict
+                        net_4_dict,
+                        learn_rate = 10e-6
                     )
                     
                     
                     net_class.train(
                         net_4,
                         epoch_limit = 200,
-                        result_dir_name = dir_out + "/seed_" + str(each_seed) 
+                        result_dir_name = dir_out + "/seed_" + str(each_seed)
                     )
                     
                     
