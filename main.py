@@ -312,7 +312,7 @@ for each_num_conv_lay in [num_conv_lay[2]]:
                 Path(dir_out).mkdir(parents = True, exist_ok = True)
                 
                 
-                for each_seed in range(0, 3):
+                for each_seed in range(1, 3):
                     
                     print("\neach seed", each_seed)
                     
