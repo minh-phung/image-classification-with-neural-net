@@ -339,7 +339,7 @@ for each_num_conv_lay in num_conv_lay:
                     
                     
                     time.sleep(10)
-                
+                    
                 
                 
                 plot.variation(
