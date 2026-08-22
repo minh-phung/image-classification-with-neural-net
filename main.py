@@ -287,9 +287,9 @@ num_fc_lay =        [1, 2]
 
 
 
-for each_num_conv_lay in num_conv_lay:
+for each_num_conv_lay in [num_conv_lay[2]]:
     
-    for each_num_conv_kern in num_conv_kern:
+    for each_num_conv_kern in [num_conv_kern[1]]:
         
         for each_num_pool_lay in num_pool_lay:
             
