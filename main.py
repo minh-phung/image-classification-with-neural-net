@@ -318,7 +318,7 @@ for each_num_conv_lay in num_conv_lay:
                     learn_rate_val = 10e-6
                 
                 
-                for each_seed in range(0, 2): # 2,7
+                for each_seed in range(2, 7):
                     
                     print("\neach seed", each_seed)
                     
