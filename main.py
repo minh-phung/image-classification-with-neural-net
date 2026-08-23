@@ -333,7 +333,7 @@ for each_num_conv_lay in num_conv_lay:
                         "net_4",
                         each_seed,
                         net_4_dict,
-                        learn_rate = fixed_learn_rate
+                        learn_rate = learn_rate_val
                     )
                     
                     net_class.train(
