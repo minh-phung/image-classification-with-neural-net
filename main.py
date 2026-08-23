@@ -312,7 +312,7 @@ for each_num_conv_lay in num_conv_lay[1:]:
                 
                 Path(dir_out).mkdir(parents = True, exist_ok = True)
                 
-                
+                '''
                 for each_seed in range(3, 7): # 3,7
                     
                     print("\neach seed", each_seed)
@@ -348,7 +348,7 @@ for each_num_conv_lay in num_conv_lay[1:]:
                     dir_out = "result/plot",
                     name = "net_4_" + name
                 )
-                '''
+                
 
 
 
