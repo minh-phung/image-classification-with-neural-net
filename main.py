@@ -288,13 +288,13 @@ num_fc_lay =        [1, 2]
 
 
 
-for each_num_conv_lay in num_conv_lay[1:]:
+for each_num_conv_lay in num_conv_lay:
     
     for each_num_conv_kern in num_conv_kern:
         
-        for each_num_pool_lay in num_pool_lay[1:]:
+        for each_num_pool_lay in num_pool_lay:
             
-            for each_num_fc_lay in [num_fc_lay[0]]:
+            for each_num_fc_lay in [num_fc_lay[1]]:
                 
                 print("\n-------------------\n")
                 print("num_conv_lay", each_num_conv_lay)
@@ -312,8 +312,13 @@ for each_num_conv_lay in num_conv_lay[1:]:
                 
                 Path(dir_out).mkdir(parents = True, exist_ok = True)
                 
-                '''
-                for each_seed in range(3, 7): # 3,7
+                learn_rate_val = 10e-5
+                
+                if each_num_conv_lay > 1 and each_num_pool_lay > 1:
+                    learn_rate_val = 10e-6
+                
+                
+                for each_seed in range(0, 2): # 2,7
                     
                     print("\neach seed", each_seed)
                     
@@ -328,16 +333,14 @@ for each_num_conv_lay in num_conv_lay[1:]:
                         "net_4",
                         each_seed,
                         net_4_dict,
-                        learn_rate = 10e-6
+                        learn_rate = fixed_learn_rate
                     )
-                    
                     
                     net_class.train(
                         net_4,
                         epoch_limit = 200,
                         result_dir_name = dir_out + "/seed_" + str(each_seed)
                     )
-                    
                     
                     time.sleep(10)
                     
@@ -348,7 +351,7 @@ for each_num_conv_lay in num_conv_lay[1:]:
                     dir_out = "result/plot",
                     name = "net_4_" + name
                 )
-                
+                '''
 
 
 
