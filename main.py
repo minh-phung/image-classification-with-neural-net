@@ -287,7 +287,7 @@ num_fc_lay =        [1, 2]
 # num_conv_layer > 1 && num_pool_lay > 1: learn_rate 10e-6
 
 
-
+'''
 for each_num_conv_lay in num_conv_lay:
     
     for each_num_conv_kern in num_conv_kern:
@@ -343,18 +343,15 @@ for each_num_conv_lay in num_conv_lay:
                     )
                     
                     time.sleep(10)
-                    
                 
-                '''
+                
+                
                 plot.variation(
                     dir = dir_out,
                     dir_out = "result/plot",
                     name = "net_4_" + name
                 )
-                '''
-
-
-
+'''
 
 # ---------------------------------------------------------------------------
 
@@ -363,9 +360,10 @@ num_conv_lay =      [1, 2, 3, 4]
 num_conv_kern =     [3, 5]
 num_pool_lay =      [1, 2, 3]
 
+# num_conv_lay > 2 && num_pool_lay > 2: learn_rate = 10e-6
 
-'''
-for each_num_conv_lay in num_conv_lay[1:]:
+
+for each_num_conv_lay in num_conv_lay:
     
     for each_num_conv_kern in num_conv_kern:
         
@@ -388,10 +386,13 @@ for each_num_conv_lay in num_conv_lay[1:]:
             
             Path(dir_out).mkdir(parents = True, exist_ok = True)
             
-            full_dir = dir_out + "/seed_" + str(each_seed)
+            learn_rate_val = 10e-6
+            
+            if each_num_conv_lay > 2 and each_num_pool_lay > 2:
+                learn_rate_val = 10e-6
             
             
-            for each_seed in range(5, 7):
+            for each_seed in range(0, 2): # 2, 7
                 
                 print("seed", each_seed)
                 
@@ -404,9 +405,11 @@ for each_num_conv_lay in num_conv_lay[1:]:
                 net_5 = net_class.model(
                     "net_5",
                     each_seed,
-                    net_5_dict
+                    net_5_dict,
+                    learn_rate = learn_rate_val
                 )
                 
+                full_dir = dir_out + "/seed_" + str(each_seed)
                 
                 net_class.train(
                     net_5,
@@ -423,4 +426,3 @@ for each_num_conv_lay in num_conv_lay[1:]:
             )
             
 
-'''
