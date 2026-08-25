@@ -366,7 +366,7 @@ for each_num_conv_lay in num_conv_lay:
     
     for each_num_conv_kern in num_conv_kern:
         
-        for each_num_pool_lay in [num_pool_lay[0]]:
+        for each_num_pool_lay in [num_pool_lay[1]]:
             
             print("\n-------------------\n")
             
@@ -391,7 +391,7 @@ for each_num_conv_lay in num_conv_lay:
                 learn_rate_val = 10e-6
             
             
-            for each_seed in range(7):
+            for each_seed in range(0, 3): # 3, 7
                 
                 print("seed", each_seed)
                 
@@ -417,6 +417,7 @@ for each_num_conv_lay in num_conv_lay:
                 )
                 time.sleep(10)
                 
+            
             '''
             plot.variation(
                 dir = dir_out,
