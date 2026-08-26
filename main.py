@@ -391,7 +391,7 @@ for each_num_conv_lay in num_conv_lay:
                 learn_rate_val = 10e-6
             
             
-            for each_seed in range(0, 3): # 3, 7
+            for each_seed in range(3, 7):
                 
                 print("seed", each_seed)
                 
