@@ -390,7 +390,7 @@ for each_num_conv_lay in num_conv_lay:
             if each_num_conv_lay > 2 and each_num_pool_lay > 2:
                 learn_rate_val = 10e-6
             
-            
+            '''
             for each_seed in range(3, 7):
                 
                 print("seed", each_seed)
@@ -416,13 +416,13 @@ for each_num_conv_lay in num_conv_lay:
                     result_dir_name = full_dir   
                 )
                 time.sleep(10)
-                
-            
             '''
+            
+            
             plot.variation(
                 dir = dir_out,
                 dir_out = "result/plot",
                 name = "net_5_" + name
             )
-            '''
+            
 
