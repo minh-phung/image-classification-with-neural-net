@@ -361,12 +361,15 @@ num_conv_kern =     [3, 5]
 num_pool_lay =      [1, 2, 3]
 
 # num_conv_lay > 2 && num_pool_lay > 2: learn_rate = 10e-6
+# else: 10e-5
 
-for each_num_conv_lay in num_conv_lay:
+# 4_5_2: learn_rate 10e-7
+
+for each_num_conv_lay in [num_conv_lay[3]]:
     
-    for each_num_conv_kern in num_conv_kern:
+    for each_num_conv_kern in [num_conv_kern[1]]:
         
-        for each_num_pool_lay in [num_pool_lay[2]]:
+        for each_num_pool_lay in [num_pool_lay[1]]:
             
             print("\n-------------------\n")
             
@@ -385,13 +388,14 @@ for each_num_conv_lay in num_conv_lay:
             
             Path(dir_out).mkdir(parents = True, exist_ok = True)
             
-            learn_rate_val = 10e-5
+            learn_rate_val = 10e-7
             
+            '''
             if each_num_conv_lay > 2 and each_num_pool_lay > 2:
                 learn_rate_val = 10e-6
+            '''
             
-            
-            for each_seed in range(5, 7):
+            for each_seed in range(7):
                 
                 print("seed", each_seed)
                 
