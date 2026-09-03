@@ -433,6 +433,6 @@ for each_num_conv_lay in num_conv_lay:
                     dir_out = "result/plot",
                     name = "net_5_" + name
                 )
-                '''
+
             
 

@@ -115,7 +115,7 @@ class Net5(torch.nn.Module):
         
         for i, each_conv in enumerate(self.lay_conv):
             
-            x = self.lay_conv_act(each_conv(x))            
+            x = self.lay_conv_act(each_conv(x))
             
             if (i+1) % self.lay_conv_number == 0:
                 
