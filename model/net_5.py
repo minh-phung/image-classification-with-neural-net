@@ -10,14 +10,17 @@ class Net5(torch.nn.Module):
     
 # input -> 
 # [[conv -> relu]*n -> max pool]*m  ->
-#  -> conv(1*1), 1 feat -> gap ->
+#  -> [conv(1*1), 1 feat]*k -> gap ->
 # output
+
+# Springenberg All Convolutional
     
     def __init__(
         self,
         lay_conv_number, #n
         lay_conv_kernel,
-        lay_pool_number #m
+        lay_pool_number, #m
+        lay_conv1_number #k
     ):
         
         print("\ninit - Net4")
@@ -79,17 +82,24 @@ class Net5(torch.nn.Module):
         
         print("\nlayer - conv - 1*1")
         
-        self.lay_conv_feat = torch.nn.Conv2d(
-            in_channels = out_channel,
-            out_channels = 1,
-            kernel_size = 1
-        )
+        self.lay_conv1 = torch.nn.ModuleList()
         
-        print("weight", "xavier_uniform")
-        SAMPLER["xavier_uniform"](self.lay_conv_feat.weight)
+        for i in range(lay_conv1_number):
+            
+            conv1 = torch.nn.Conv2d(
+                in_channels = out_channel,
+                out_channels = 1,
+                kernel_size = 1
+            )
+            
+            print("weight", "xavier_uniform")
+            SAMPLER["xavier_uniform"](conv1.weight)
         
-        print("bias", "zeros")
-        SAMPLER["zeros"](self.lay_conv_feat.bias)
+            print("bias", "zeros")
+            SAMPLER["zeros"](conv1.bias)
+            
+            self.lay_conv1.append(conv1)
+        
         
         #---------------------------------------------------
         
@@ -111,7 +121,9 @@ class Net5(torch.nn.Module):
                 
                 x = self.lay_pool(x)
         
-        x = self.lay_conv_feat(x)
+        for each_conv1 in self.lay_conv1:
+            
+            x = each_conv1(x)
         
         x = self.lay_pool_global(x)
         

@@ -4,6 +4,6 @@ https://www.cs.toronto.edu/~rgrosse/courses/csc421_2019/readings/L09%20Convoluti
 
 https://arxiv.org/abs/1409.4842
 
-https://arxiv.org/pdf/1409.1556
+https://arxiv.org/abs/1412.6806
 
 https://cs231n.github.io/convolutional-networks/

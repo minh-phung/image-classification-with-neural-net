@@ -8,9 +8,7 @@ class Net3(torch.nn.Module):
     
     # input -> [conv -> relu]*n  -> conv(1*1), 1 feat -> gap -> output
     # 
-    # gap: global average pooling
-    
-    # Springenberg All Convolutional 
+    # gap: global average pooling 
     
     def __init__(
         self,

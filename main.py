@@ -359,75 +359,80 @@ for each_num_conv_lay in num_conv_lay:
 num_conv_lay =      [1, 2, 3, 4]
 num_conv_kern =     [3, 5]
 num_pool_lay =      [1, 2, 3]
+num_conv1_lay =     [1, 2]
 
 # num_conv_lay > 2 && num_pool_lay > 2: learn_rate = 10e-6
 # else: 10e-5
 
 # 4_5_2: learn_rate 10e-7
 
-for each_num_conv_lay in [num_conv_lay[3]]:
+for each_num_conv_lay in num_conv_lay:
     
-    for each_num_conv_kern in [num_conv_kern[1]]:
+    for each_num_conv_kern in num_conv_kern:
         
-        for each_num_pool_lay in [num_pool_lay[1]]:
+        for each_num_pool_lay in num_pool_lay:
             
-            print("\n-------------------\n")
-            
-            print(each_num_conv_lay)
-            print(each_num_conv_kern)
-            print(each_num_pool_lay) 
-            
-            print("\n-------------------\n")
-            
-            
-            name = str(each_num_conv_lay)
-            name += "_" + str(each_num_conv_kern)
-            name += "_" + str(each_num_pool_lay)
-            
-            dir_out = "result/net_5/" + name
-            
-            Path(dir_out).mkdir(parents = True, exist_ok = True)
-            
-            learn_rate_val = 10e-7
-            
-            '''
-            if each_num_conv_lay > 2 and each_num_pool_lay > 2:
-                learn_rate_val = 10e-6
-            '''
-            
-            for each_seed in range(7):
+            for each_num_conv1_lay in [num_conv1_lay[1]]:
                 
-                print("seed", each_seed)
+                print("\n-------------------\n")
                 
-                net_5_dict = {
-                    "lay_conv_number"   :   each_num_conv_lay,
-                    "lay_conv_kernel"   :   each_num_conv_kern,
-                    "lay_pool_number"   :   each_num_pool_lay
-                }
+                print(each_num_conv_lay)
+                print(each_num_conv_kern)
+                print(each_num_pool_lay) 
                 
-                net_5 = net_class.model(
-                    "net_5",
-                    each_seed,
-                    net_5_dict,
-                    learn_rate = learn_rate_val
+                print("\n-------------------\n")
+                
+                name = str(each_num_conv_lay)
+                name += "_" + str(each_num_conv_kern)
+                name += "_" + str(each_num_pool_lay)
+                name += "_" + str(each_num_conv1_lay)
+                
+                dir_out = "result/net_5/" + name
+                
+                Path(dir_out).mkdir(parents = True, exist_ok = True)
+                
+                
+                learn_rate_val = 10e-5
+                
+                if each_num_conv_lay > 2 and each_num_pool_lay > 2:
+                    learn_rate_val = 10e-6
+                
+                
+                
+                for each_seed in range(7):
+                    
+                    print("seed", each_seed)
+                    
+                    net_5_dict = {
+                        "lay_conv_number"   :   each_num_conv_lay,
+                        "lay_conv_kernel"   :   each_num_conv_kern,
+                        "lay_pool_number"   :   each_num_pool_lay,
+                        "lay_conv1_number"  :   each_num_conv1_lay,
+                    }
+                    
+                    net_5 = net_class.model(
+                        "net_5",
+                        each_seed,
+                        net_5_dict,
+                        learn_rate = learn_rate_val
+                    )
+                    
+                    full_dir = dir_out + "/seed_" + str(each_seed)
+                    
+                    net_class.train(
+                        net_5,
+                        epoch_limit = 200,
+                        result_dir_name = full_dir   
+                    )
+                    time.sleep(10)
+                
+            
+                '''
+                plot.variation(
+                    dir = dir_out,
+                    dir_out = "result/plot",
+                    name = "net_5_" + name
                 )
-                
-                full_dir = dir_out + "/seed_" + str(each_seed)
-                
-                net_class.train(
-                    net_5,
-                    epoch_limit = 200,
-                    result_dir_name = full_dir   
-                )
-                time.sleep(10)
-            
-            
-            '''
-            plot.variation(
-                dir = dir_out,
-                dir_out = "result/plot",
-                name = "net_5_" + name
-            )
-            '''
+                '''
             
 
