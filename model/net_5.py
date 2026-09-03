@@ -10,7 +10,7 @@ class Net5(torch.nn.Module):
     
 # input -> 
 # [[conv -> relu]*n -> max pool]*m  ->
-#  -> [conv(1*1), 1 feat]*k -> gap ->
+# [conv(1*1), 1 feat -> relu]*k -> gap ->
 # output
 
 # Springenberg All Convolutional
@@ -73,6 +73,8 @@ class Net5(torch.nn.Module):
             stride = 2
         )
         
+        print("\npooling", self.lay_pool)
+        
         width = 64 
         
         for i in range(lay_pool_number):
@@ -84,11 +86,19 @@ class Net5(torch.nn.Module):
         
         self.lay_conv1 = torch.nn.ModuleList()
         
+        self.lay_conv1_act = ACTIVATION["relu"]
+        
+        in_channel = out_channel
+        out_channel = out_channel
+        
         for i in range(lay_conv1_number):
             
+            if i+1 == lay_conv1_number:
+                out_channel = 1
+            
             conv1 = torch.nn.Conv2d(
-                in_channels = out_channel,
-                out_channels = 1,
+                in_channels = in_channel,
+                out_channels = out_channel,
                 kernel_size = 1
             )
             
@@ -100,6 +110,7 @@ class Net5(torch.nn.Module):
             
             self.lay_conv1.append(conv1)
         
+            print("activation", self.lay_conv1_act)
         
         #---------------------------------------------------
         
@@ -108,6 +119,11 @@ class Net5(torch.nn.Module):
         self.lay_pool_global = torch.nn.AvgPool2d(
             kernel_size = int(width)
         )
+        
+        self.lay_pool_global_act = ACTIVATION["relu"]
+        
+        print("activation", self.lay_pool_global_act)
+        
         
         
         
@@ -123,8 +139,8 @@ class Net5(torch.nn.Module):
         
         for each_conv1 in self.lay_conv1:
             
-            x = each_conv1(x)
+            x = self.lay_conv1_act(each_conv1(x))
         
-        x = self.lay_pool_global(x)
+        x = self.lay_pool_global_act(self.lay_pool_global(x))
         
         return x.squeeze((1, 2, 3))
