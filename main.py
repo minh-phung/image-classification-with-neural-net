@@ -416,7 +416,7 @@ for each_num_conv_lay in [num_conv_lay[3]]:
                 
                 net_class.train(
                     net_5,
-                    epoch_limit = 200,
+                    epoch_limit = 250,
                     result_dir_name = full_dir   
                 )
                 time.sleep(10)
