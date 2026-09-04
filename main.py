@@ -399,7 +399,7 @@ for each_num_conv_lay in num_conv_lay:
                     learn_rate_val = 10e-6
                 
                 
-                for each_seed in range(7):
+                for each_seed in range(5, 7):
                     
                     print("seed", each_seed)
                     
@@ -421,7 +421,7 @@ for each_num_conv_lay in num_conv_lay:
                     
                     net_class.train(
                         net_5,
-                        epoch_limit = 200,
+                        epoch_limit = 250,
                         result_dir_name = full_dir   
                     )
                     time.sleep(10)
