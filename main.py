@@ -393,10 +393,7 @@ for each_num_conv_lay in num_conv_lay:
                 Path(dir_out).mkdir(parents = True, exist_ok = True)
                 
                 
-                learn_rate_val = 10e-5
-                
-                if each_num_conv_lay > 2 and each_num_pool_lay > 2:
-                    learn_rate_val = 10e-6
+                learn_rate_val = 10e-4
                 
                 
                 for each_seed in range(5, 7):
@@ -426,6 +423,7 @@ for each_num_conv_lay in num_conv_lay:
                     )
                     time.sleep(10)
                 
+                
                 '''
                 plot.variation(
                     dir = dir_out,
@@ -433,4 +431,5 @@ for each_num_conv_lay in num_conv_lay:
                     name = "net_5_" + name
                 )
                 '''
+                
 

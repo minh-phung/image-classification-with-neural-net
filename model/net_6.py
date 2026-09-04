@@ -8,4 +8,4 @@ class Net6(torch.nn.Module):
     
     def __init__(self):
         
-        
+        print("\ninit - Net6")

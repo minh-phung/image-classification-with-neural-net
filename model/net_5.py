@@ -23,7 +23,7 @@ class Net5(torch.nn.Module):
         lay_conv1_number #k
     ):
         
-        print("\ninit - Net4")
+        print("\ninit - Net5")
         
         super().__init__() 
         
