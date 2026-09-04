@@ -6,7 +6,7 @@ import numpy as np
 
 
 
-from model import Net0, Net1, Net2, Net3, Net4, Net5
+from model import Net0, Net1, Net2, Net3, Net4, Net5, Net6
 
 from feature import LOSS
 from feature import first_der as first_der_stop
@@ -20,7 +20,8 @@ model_dict = {
     "net_2": Net2,
     "net_3": Net3,
     "net_4": Net4,
-    "net_5": Net5
+    "net_5": Net5,
+    "net_6": Net6
 }
 
 class FitNet():
