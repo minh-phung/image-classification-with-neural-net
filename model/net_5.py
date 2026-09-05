@@ -86,7 +86,7 @@ class Net5(torch.nn.Module):
         
         self.lay_conv1 = torch.nn.ModuleList()
         
-        self.lay_conv1_act = ACTIVATION["relu"]
+        #self.lay_conv1_act = ACTIVATION["relu"]
         
         in_channel = out_channel
         out_channel = out_channel
@@ -110,7 +110,7 @@ class Net5(torch.nn.Module):
             
             self.lay_conv1.append(conv1)
         
-            print("activation", self.lay_conv1_act)
+            #print("activation", self.lay_conv1_act)
         
         #---------------------------------------------------
         
@@ -120,9 +120,6 @@ class Net5(torch.nn.Module):
             kernel_size = int(width)
         )
         
-        self.lay_pool_global_act = ACTIVATION["relu"]
-        
-        print("activation", self.lay_pool_global_act)
         
         
         
@@ -139,8 +136,9 @@ class Net5(torch.nn.Module):
         
         for each_conv1 in self.lay_conv1:
             
-            x = self.lay_conv1_act(each_conv1(x))
+            #x = self.lay_conv1_act(each_conv1(x))
+            x = each_conv1(x)
         
-        x = self.lay_pool_global_act(self.lay_pool_global(x))
+        x = self.lay_pool_global(x)
         
         return x.squeeze((1, 2, 3))
