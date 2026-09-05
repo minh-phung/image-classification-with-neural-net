@@ -137,6 +137,7 @@ class Net5(torch.nn.Module):
         for each_conv1 in self.lay_conv1:
             
             #x = self.lay_conv1_act(each_conv1(x))
+            
             x = each_conv1(x)
         
         x = self.lay_pool_global(x)
