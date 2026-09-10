@@ -367,9 +367,9 @@ num_conv1_lay =     [1, 2]
 
 '''
 
-for each_num_conv_lay in [num_conv_lay[0]]:
+for each_num_conv_lay in num_conv_lay:
     
-    for each_num_conv_kern in [num_conv_kern[0]]:
+    for each_num_conv_kern in num_conv_kern:
         
         for each_num_pool_lay in num_pool_lay:
             
@@ -423,14 +423,12 @@ for each_num_conv_lay in [num_conv_lay[0]]:
                     )
                     
                     time.sleep(10)
-                    
-                
+
                 plot.variation(
                     dir = dir_out,
                     dir_out = "result/plot",
                     name = "net_5_" + name
                 )
-                
 '''
 
 
