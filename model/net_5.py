@@ -5,12 +5,11 @@ from feature.sampler import SAMPLER
 from feature.activation import ACTIVATION
 
 
-
 class Net5(torch.nn.Module):
     
 # input -> 
-# [[conv -> relu]*n -> max pool]*m  ->
-# [conv(1*1), 1 feat -> relu]*k -> gap ->
+# [[conv -> relu]*n -> max pool]*m ->
+# [conv(1*1), 1 feat]*k -> gap ->
 # output
 
 # Springenberg All Convolutional
@@ -137,6 +136,7 @@ class Net5(torch.nn.Module):
         for each_conv1 in self.lay_conv1:
             
             #x = self.lay_conv1_act(each_conv1(x))
+            
             x = each_conv1(x)
         
         x = self.lay_pool_global(x)

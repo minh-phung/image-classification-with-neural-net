@@ -361,18 +361,19 @@ num_conv_kern =     [3, 5]
 num_pool_lay =      [1, 2, 3]
 num_conv1_lay =     [1, 2]
 
-# num_conv_lay > 2 && num_pool_lay > 2: learn_rate = 10e-6
-# else: 10e-5
+# learn_rate = 10e-5
 
-# 
+
+
+'''
 
 for each_num_conv_lay in [num_conv_lay[0]]:
     
     for each_num_conv_kern in [num_conv_kern[0]]:
         
-        for each_num_pool_lay in [num_pool_lay[0]]:
+        for each_num_pool_lay in num_pool_lay:
             
-            for each_num_conv1_lay in [num_conv1_lay[0]]:
+            for each_num_conv1_lay in num_conv1_lay:
                 
                 print("\n-------------------\n")
                 
@@ -393,9 +394,9 @@ for each_num_conv_lay in [num_conv_lay[0]]:
                 Path(dir_out).mkdir(parents = True, exist_ok = True)
                 
                 
-                learn_rate_val = 10e-3
+                learn_rate_val = 10e-5
                 
-                for each_seed in range(0, 7):
+                for each_seed in range(0, 7): 
                     
                     print("seed", each_seed)
                     
@@ -417,18 +418,49 @@ for each_num_conv_lay in [num_conv_lay[0]]:
                     
                     net_class.train(
                         net_5,
-                        epoch_limit = 100,
+                        epoch_limit = 200,
                         result_dir_name = full_dir   
                     )
                     
-                '''
+                    time.sleep(10)
+                    
+                
                 plot.variation(
                     dir = dir_out,
                     dir_out = "result/plot",
                     name = "net_5_" + name
                 )
-                '''
                 
-                
-                
+'''
+
+
+# ---------------------------------------------------------------------------
+
+num_conv_lay =      [1, 2, 3, 4]
+num_conv_kern =     [3, 5]
+num_pool_lay =      [1, 2, 3]
+num_fc_lay =        [1, 2]
+
+
+
+net_6_dict = {
+    "lay_conv_number":  2,
+    "lay_conv_kernel":    3,
+    "lay_pool_number":  2,
+    "lay_fc_number":    2
+}
+
+
+net_6 = net_class.model(
+    "net_6",
+    0,
+    net_6_dict,
+    learn_rate = 10e-5
+)
+
+net_class.train(
+    net_6,
+    epoch_limit = 100,
+    result_dir_name = None
+)
 
