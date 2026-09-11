@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 import time
 from pathlib import Path
+import winsound
 
 
 from fit import FitNet
@@ -361,16 +362,15 @@ num_conv_kern =     [3, 5]
 num_pool_lay =      [1, 2, 3]
 num_conv1_lay =     [1, 2]
 
-# pool_lay = 1, learn_rate = 10e-5
-#          = 2,            = 10e-5
 
-for each_num_conv_lay in num_conv_lay:
+
+for each_num_conv_lay in [num_conv_lay[0]]:
     
-    for each_num_conv_kern in num_conv_kern:
+    for each_num_conv_kern in [num_conv_kern[1]]:
         
-        for each_num_pool_lay in [num_pool_lay[1]]:
+        for each_num_pool_lay in [num_pool_lay[0]]:
             
-            for each_num_conv1_lay in num_conv1_lay:
+            for each_num_conv1_lay in [num_conv1_lay[0]]:
                 
                 print("\n-------------------\n")
                 
@@ -391,9 +391,11 @@ for each_num_conv_lay in num_conv_lay:
                 Path(dir_out).mkdir(parents = True, exist_ok = True)
                 
                 
-                learn_rate_val = 10e-5
+                learn_rate_val = 5e-4
+                print("learn rate", learn_rate_val)
                 
-                for each_seed in range(0, 7): 
+                
+                for each_seed in range(0, 2): 
                     
                     print("seed", each_seed)
                     
@@ -427,9 +429,6 @@ for each_num_conv_lay in num_conv_lay:
                     dir_out = "result/plot",
                     name = "net_5_" + name
                 )
-                
-
-
 
 
 # ---------------------------------------------------------------------------
