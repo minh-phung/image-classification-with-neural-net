@@ -391,10 +391,10 @@ for each_num_conv_lay in [num_conv_lay[0]]:
                 Path(dir_out).mkdir(parents = True, exist_ok = True)
                 
                 
-                learn_rate_val = 5e-3
+                learn_rate_val = 10e-4
                 print("learn rate", learn_rate_val)
                 
-                '''
+                
                 for each_seed in range(0, 3):
                     
                     print("seed", each_seed)
@@ -422,7 +422,7 @@ for each_num_conv_lay in [num_conv_lay[0]]:
                     )
                     
                     time.sleep(10)
-                '''
+                
                 
                 plot.variation(
                     dir = dir_out,
