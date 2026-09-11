@@ -361,17 +361,14 @@ num_conv_kern =     [3, 5]
 num_pool_lay =      [1, 2, 3]
 num_conv1_lay =     [1, 2]
 
-# learn_rate = 10e-5
-
-
-
-'''
+# pool_lay = 1, learn_rate = 10e-5
+#          = 2,            = 10e-5
 
 for each_num_conv_lay in num_conv_lay:
     
     for each_num_conv_kern in num_conv_kern:
         
-        for each_num_pool_lay in num_pool_lay:
+        for each_num_pool_lay in [num_pool_lay[1]]:
             
             for each_num_conv1_lay in num_conv1_lay:
                 
@@ -423,13 +420,16 @@ for each_num_conv_lay in num_conv_lay:
                     )
                     
                     time.sleep(10)
-
+                
+                
                 plot.variation(
                     dir = dir_out,
                     dir_out = "result/plot",
                     name = "net_5_" + name
                 )
-'''
+                
+
+
 
 
 # ---------------------------------------------------------------------------
@@ -448,7 +448,7 @@ net_6_dict = {
     "lay_fc_number":    2
 }
 
-
+'''
 net_6 = net_class.model(
     "net_6",
     0,
@@ -461,4 +461,4 @@ net_class.train(
     epoch_limit = 100,
     result_dir_name = None
 )
-
+'''
