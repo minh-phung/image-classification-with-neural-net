@@ -391,11 +391,11 @@ for each_num_conv_lay in [num_conv_lay[0]]:
                 Path(dir_out).mkdir(parents = True, exist_ok = True)
                 
                 
-                learn_rate_val = 5e-4
+                learn_rate_val = 5e-3
                 print("learn rate", learn_rate_val)
                 
                 
-                for each_seed in range(0, 2): 
+                for each_seed in range(0, 3):
                     
                     print("seed", each_seed)
                     
@@ -417,7 +417,7 @@ for each_num_conv_lay in [num_conv_lay[0]]:
                     
                     net_class.train(
                         net_5,
-                        epoch_limit = 200,
+                        epoch_limit = 400,
                         result_dir_name = full_dir   
                     )
                     
