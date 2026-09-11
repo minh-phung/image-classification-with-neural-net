@@ -9,10 +9,10 @@ class Net5(torch.nn.Module):
     
 # input -> 
 # [[conv -> relu]*n -> max pool]*m ->
-# [conv(1*1), 1 feat]*k -> gap ->
+# conv(1*1)*k -> gap ->
 # output
 
-# Springenberg All Convolutional
+# Springenberg All Convolutional table 1
     
     def __init__(
         self,

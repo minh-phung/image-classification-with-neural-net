@@ -4,11 +4,15 @@ import numpy as np
 from feature.sampler import SAMPLER
 from feature.activation import ACTIVATION
 
+
 class Net3(torch.nn.Module):
     
-    # input -> [conv -> relu]*n  -> conv(1*1), 1 feat -> gap -> output
-    # 
-    # gap: global average pooling 
+# input -> 
+# [conv -> relu]*n -> 
+# conv(1*1), 1 feat -> gap -> 
+# output
+    
+# gap: global average pooling 
     
     def __init__(
         self,
