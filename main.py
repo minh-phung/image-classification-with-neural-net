@@ -364,13 +364,13 @@ num_conv1_lay =     [1, 2]
 
 
 
-for each_num_conv_lay in [num_conv_lay[0]]:
+for each_num_conv_lay in [num_conv_lay[1]]:
     
-    for each_num_conv_kern in [num_conv_kern[1]]:
+    for each_num_conv_kern in [num_conv_kern[0]]:
         
         for each_num_pool_lay in [num_pool_lay[0]]:
             
-            for each_num_conv1_lay in [num_conv1_lay[1]]:
+            for each_num_conv1_lay in [num_conv1_lay[0]]:
                 
                 print("\n-------------------\n")
                 
@@ -395,7 +395,7 @@ for each_num_conv_lay in [num_conv_lay[0]]:
                 print("learn rate", learn_rate_val)
                 
                 
-                for each_seed in range(0, 3):
+                for each_seed in range(0, 7):
                     
                     print("seed", each_seed)
                     
@@ -417,11 +417,11 @@ for each_num_conv_lay in [num_conv_lay[0]]:
                     
                     net_class.train(
                         net_5,
-                        epoch_limit = 400,
+                        epoch_limit = 200,
                         result_dir_name = full_dir   
                     )
                     
-                    time.sleep(10)
+                    time.sleep(20)
                 
                 
                 plot.variation(
