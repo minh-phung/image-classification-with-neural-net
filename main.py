@@ -66,6 +66,22 @@ net_class = FitNet(
     x_val_norm, y_val
 )
 
+net_1_args = (1, "xavier_uniform", "zeros", "identity")
+
+
+'''
+net_1 = net_class.model(
+    "net_1",
+    0,
+    net_1_args
+)
+
+net_class.train(
+    net_1,
+    result_dir_name = None
+)
+'''
+
 # ---------------------------------------------------------------------------
 
 # Path(dir_out).mkdir(parents = True, exist_ok = True)
@@ -73,3 +89,4 @@ net_class = FitNet(
 
 
 execution.csv("schedule.csv")
+

@@ -84,12 +84,12 @@ class FitNet():
         self, 
         model, 
         seed,
-        kwarg_dict,
+        args,
         learn_rate = 10e-5):
         
         torch.manual_seed(seed)
         
-        net = model_dict[model](**kwarg_dict)
+        net = model_dict[model](*args)
         
         print("\n----------------------\n")
         

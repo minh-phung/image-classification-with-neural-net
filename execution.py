@@ -17,6 +17,7 @@ def csv(
     print(df)
     
     
+    except_write = False
     
     for row in df.itertuples():
         
@@ -34,10 +35,12 @@ def csv(
             
             df_copy = df_copy.drop(row.Index)
             
-        except: pass
-    
-    df_copy.to_csv("schedule_interupted.csv", index = False)
+        except: 
+            except_write = True
             
-        
+            pass
     
+    if except_write:
+        df_copy.to_csv("schedule_interupted.csv", index = False)
+            
     
