@@ -1,13 +1,43 @@
 import pandas as pd
 
+from fit import FitNet
+
+
 def csv(
     dir
 ):
     
-    print("scheduler - schedule.csv")
+    print("\n\nExecute - schedule.csv")
     
     df = pd.read_csv(dir)
     
+    df_copy = df.copy()
+    
+    
     print(df)
+    
+    
+    
+    for row in df.itertuples():
+        
+        print("\n\n----")
+        
+        try:
+            print("model", row.model)
+            print("learn_rate", row.learn_rate)
+            print("epoch", row.epoch)
+            
+            print(row[3:])
+            
+            print(type(row[3:]))
+            
+            
+            df_copy = df_copy.drop(row.Index)
+            
+        except: pass
+    
+    df_copy.to_csv("schedule_interupted.csv", index = False)
+            
+        
     
     
