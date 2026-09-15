@@ -4,14 +4,16 @@ from fit import FitNet
 
 
 def csv(
-    dir
+    dir,
+    x_train, y_train,
+    x_val, y_val
 ):
     
     print("\n\nExecute - schedule.csv")
     
-    df = pd.read_csv(dir)
+    sche = pd.read_csv(dir + "/schedule.csv")
     
-    df_copy = df.copy()
+    sche_inte = sche.copy()
     
     
     print(df)
@@ -28,19 +30,19 @@ def csv(
             print("learn_rate", row.learn_rate)
             print("epoch", row.epoch)
             
-            print(row[3:])
-            
-            print(type(row[3:]))
+            para = row[3:]
             
             
-            df_copy = df_copy.drop(row.Index)
+            
+            sche_inte = df_copy.drop(row.Index)
             
         except: 
             except_write = True
             
             pass
     
+    
     if except_write:
-        df_copy.to_csv("schedule_interupted.csv", index = False)
+        sche_inte.to_csv("schedule_interupted.csv", index = False)
             
     

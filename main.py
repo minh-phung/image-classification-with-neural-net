@@ -88,5 +88,9 @@ net_class.train(
 
 
 
-execution.csv("schedule.csv")
+execution.csv(
+    "schedule/Net1",
+    x_train_norm, y_train,
+    x_val_norm, y_val
+)
 
