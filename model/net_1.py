@@ -22,7 +22,8 @@ class Net1(torch.nn.Module):
         super().__init__()
         
         #---------------------------------------------------
-        self.lay = [None]*lay_hidden_number
+        self.lay = torch.nn.ModuleList()
+        
         self.activation = ACTIVATION[lay_activation]
         
         input_count = 3*64*64
@@ -40,19 +41,20 @@ class Net1(torch.nn.Module):
             print("\nlayer", i)
             print("input", lay_in, "output", lay_count[i])
             
-            self.lay[i] = torch.nn.Linear(
+            fc = torch.nn.Linear(
                 lay_in,
                 lay_count[i]
             )
             
             print("weight", SAMPLER[lay_sampler_weight])
-            SAMPLER[lay_sampler_weight](self.lay[i].weight)
+            SAMPLER[lay_sampler_weight](fc.weight)
             
             print("bias", SAMPLER[lay_sampler_bias])
-            SAMPLER[lay_sampler_bias](self.lay[i].bias)
+            SAMPLER[lay_sampler_bias](fc.bias)
             
             print("activation", self.activation)
             
+            self.lay.append(fc)
             
             lay_in = lay_count[i]
         

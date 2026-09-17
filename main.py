@@ -66,14 +66,15 @@ net_class = FitNet(
     x_val_norm, y_val
 )
 
-net_1_args = (1, "xavier_uniform", "zeros", "identity")
+net_1_args = (1, "xavier_uniform", "zeros", "sigmoid")
 
 
 '''
 net_1 = net_class.model(
     "net_1",
     0,
-    net_1_args
+    net_1_args,
+    learn_rate = 0.001
 )
 
 net_class.train(
@@ -89,8 +90,7 @@ net_class.train(
 
 
 execution.csv(
-    "schedule/Net1",
+    "schedule/net_1",
     x_train_norm, y_train,
     x_val_norm, y_val
 )
-

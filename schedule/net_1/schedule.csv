@@ -1,9 +1,9 @@
 model,epoch,learn_rate,,,,
-1,200,0.001,1,xavier_uniform,zeros,identity
-1,200,0.001,1,xavier_normal,zeros,identity
 1,200,0.001,1,xavier_uniform,zeros,sigmoid
 1,200,0.001,1,xavier_normal,zeros,sigmoid
-1,200,0.001,1,kaiming_uniform,constant,tanh
-1,200,0.001,1,kaiming_normal,constant,tanh
 1,200,0.001,1,kaiming_uniform,constant,relu
 1,200,0.001,1,kaiming_normal,constant,relu
+1,200,0.001,2,xavier_uniform,zeros,sigmoid
+1,200,0.001,2,xavier_normal,zeros,sigmoid
+1,200,0.001,2,kaiming_uniform,constant,relu
+1,200,0.001,2,kaiming_normal,constant,relu
