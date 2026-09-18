@@ -44,9 +44,9 @@ def csv(
             
             para = row[4:]
             
-            id_val = para + (str(row.learn_rate),)
+            id = "_".join(map(str, para))
             
-            id = "_".join(map(str, id_val))
+            id = id + "__" + str(row.learn_rate)
             
             print(id)
             
@@ -57,7 +57,7 @@ def csv(
             os.makedirs(dir_result, exist_ok = True)
             
             
-            for each_seed in range(2):
+            for each_seed in range(1):
                 
                 print("\nseed", each_seed)
                 

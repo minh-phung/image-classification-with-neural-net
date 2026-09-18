@@ -2,8 +2,7 @@ import h5py
 import numpy as np
 from sklearn.model_selection import train_test_split
 import time
-from pathlib import Path
-import winsound
+import os
 
 
 from fit import FitNet
@@ -94,3 +93,14 @@ execution.csv(
     x_train_norm, y_train,
     x_val_norm, y_val
 )
+
+
+
+
+dir_1 = "result/net_1"
+
+for sub_dir in os.scandir(dir_1):
+    
+    print(sub_dir)
+    
+    
