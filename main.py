@@ -85,3 +85,11 @@ plot.net_variation(
     "result/plot"
 )
 '''
+
+# ---------------------------------------------
+
+execution.csv(
+    "schedule/net_2",
+    x_train_norm, y_train,
+    x_val_norm, y_val
+)

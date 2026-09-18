@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+import time
 
 from fit import FitNet
 
@@ -73,6 +74,8 @@ def csv(
                     epoch_limit = int(row.epoch),
                     result_dir_name = dir_result + "/seed_" + str(each_seed)
                 )
+                
+                time.sleep(10)
                 
             
             #------------------
