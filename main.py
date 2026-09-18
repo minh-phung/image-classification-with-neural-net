@@ -59,16 +59,16 @@ x_test_norm  = (x_test  - mean) / std
 
 
 # ---------------------------------------------------------------------------
-'''
-execution.csv(
-    "schedule/net_0",
-    x_train_norm, y_train,
-    x_val_norm, y_val
-)
-'''
 
-plot.net_variation(
-    "result/net_0",
-    "result/plot"
+net_1 = net_class.model(
+    "net_1",
+    0,
+    net_1_args,
+    learn_rate = 0.001
+)
+
+net_class.train(
+    net_1,
+    result_dir_name = None
 )
 
