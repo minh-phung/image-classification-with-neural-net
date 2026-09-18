@@ -87,7 +87,6 @@ net_class.train(
 # Path(dir_out).mkdir(parents = True, exist_ok = True)
 
 
-
 execution.csv(
     "schedule/net_1",
     x_train_norm, y_train,
@@ -95,12 +94,10 @@ execution.csv(
 )
 
 
+execution.csv(
+    "schedule/net_2",
+    x_train_norm, y_train,
+    x_val_norm, y_val
+)
 
 
-dir_1 = "result/net_1"
-
-for sub_dir in os.scandir(dir_1):
-    
-    print(sub_dir)
-    
-    

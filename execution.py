@@ -57,7 +57,7 @@ def csv(
             os.makedirs(dir_result, exist_ok = True)
             
             
-            for each_seed in range(1):
+            for each_seed in range(7):
                 
                 print("\nseed", each_seed)
                 
