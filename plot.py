@@ -10,26 +10,40 @@ plt.rcParams['figure.figsize'] = (10, 7)
 colors = plt.get_cmap('tab10').colors
 
 
-
-def variation(dir, dir_out, name):
+def net_variation(dir_net, dir_out):
     
-    for root, dirs, files in os.walk(dir):
+    print("\nplot - net variation")
+    
+    for sub_dir in os.listdir(dir_net):
         
-        for j, file in enumerate(files):
-            
-            print(file)
-            
-            full_path = os.path.join(root, file)
-            
-            df = pd.read_csv(full_path)[["epoch","val_loss"]]
-            
-            plt.plot(
-                np.log(df["epoch"].values),
-                df["val_loss"].values,
-                color = colors[j],
-                label = file[0:-4]
-            )
+        print("--------")
+        
+        variation(
+            os.path.join(dir_net, sub_dir),
+            os.path.basename(dir_net) + "__" + str(sub_dir),
+            dir_out
+        )
     
+    
+def variation(dir, name, dir_out):
+    
+    print("dir_name", name)
+    
+    for i, sub_dir in enumerate(os.listdir(dir)):
+        
+        print(sub_dir)
+        
+        full_path = os.path.join(dir, sub_dir)
+    
+        df = pd.read_csv(full_path)[["epoch","val_loss"]]
+            
+        plt.plot(
+            np.log(df["epoch"].values),
+            df["val_loss"].values,
+            color = colors[i],
+            label = str(sub_dir)[:-4]
+        )
+
     plt.ylim(0, 1.5)
     
     plt.xlabel("log(epoch)")
@@ -41,8 +55,6 @@ def variation(dir, dir_out, name):
     
     plt.close()
     
-    
-    return
 
 
 def compute(array_df, variable):

@@ -59,48 +59,16 @@ x_test_norm  = (x_test  - mean) / std
 
 
 # ---------------------------------------------------------------------------
-
-net_class = FitNet(
-    x_train_norm, y_train,
-    x_val_norm, y_val
-)
-
-net_1_args = (1, "xavier_uniform", "zeros", "sigmoid")
-
-
 '''
-net_1 = net_class.model(
-    "net_1",
-    0,
-    net_1_args,
-    learn_rate = 0.001
-)
-
-net_class.train(
-    net_1,
-    result_dir_name = None
-)
-'''
-
-# ---------------------------------------------------------------------------
-
-# Path(dir_out).mkdir(parents = True, exist_ok = True)
-
-
-
 execution.csv(
-    "schedule/net_1",
+    "schedule/net_0",
     x_train_norm, y_train,
     x_val_norm, y_val
 )
+'''
 
+plot.net_variation(
+    "result/net_0",
+    "result/plot"
+)
 
-
-
-dir_1 = "result/net_1"
-
-for sub_dir in os.scandir(dir_1):
-    
-    print(sub_dir)
-    
-    
