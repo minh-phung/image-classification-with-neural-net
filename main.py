@@ -73,7 +73,7 @@ plot.net_variation(
 )
 '''
 # ---------------------------------------------
-
+'''
 execution.csv(
     "schedule/net_1",
     x_train_norm, y_train,
@@ -84,7 +84,7 @@ plot.net_variation(
     "result/net_1",
     "result/plot"
 )
-
+'''
 
 # ---------------------------------------------
 '''
@@ -94,3 +94,7 @@ execution.csv(
     x_val_norm, y_val
 )
 '''
+plot.net_variation(
+    "result/net_2",
+    "result/plot"
+)
