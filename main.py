@@ -59,7 +59,6 @@ x_test_norm  = (x_test  - mean) / std
 
 
 # ---------------------------------------------------------------------------
-
 '''
 execution.csv(
     "schedule/net_0",
@@ -93,8 +92,22 @@ execution.csv(
     x_train_norm, y_train,
     x_val_norm, y_val
 )
-'''
+
 plot.net_variation(
     "result/net_2",
     "result/plot"
 )
+'''
+# ---------------------------------------------
+
+execution.csv(
+    "schedule/net_3",
+    x_train_norm, y_train,
+    x_val_norm, y_val
+)
+'''
+plot.net_variation(
+    "result/net_3",
+    "result/plot"
+)
+'''
