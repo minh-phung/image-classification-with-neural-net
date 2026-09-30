@@ -5,3 +5,4 @@ from .net_3 import Net3
 from .net_4 import Net4
 from .net_5 import Net5
 from .net_6 import Net6
+from .net_7 import Net7

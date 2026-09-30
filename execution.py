@@ -86,7 +86,10 @@ def csv(
             
             quit()
         
-        except: 
+        except Exception as e: 
+            
+            print("--error--")
+            print(e)
             except_write = True
             
             pass

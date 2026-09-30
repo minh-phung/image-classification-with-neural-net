@@ -5,19 +5,205 @@ from feature.sampler import SAMPLER
 from feature.activation import ACTIVATION
 
 
-class Net5(torch.nn.Module):
+class Net7(torch.nn.Module):
     
 # input -> 
-# [[conv]*n -> conv stride 2]*m
-# conv(1*1)*k -> gap ->
+# [[conv -> relu]*n -> conv stride 2 -> relu]*m
+# [conv(1*1) -> relu]*k -> gap ->
 # output
  
 
-# Springenberg All Convolutional table 2 all-cnn-c
+# Springenberg All Convolutional table 2 all-cnn
 
     def __init__(
         self,
+        lay_conv_number, #n
+        lay_conv_kernel,
+        lay_stride2_number, #m
+        lay_conv1_number, #k
+        lay_conv1_act # 0 - False, 1 - True
     ):
         
         print("\ninit - Net7")
 
+        super().__init__()
+        
+        width = 64
+        
+        input_count = 3*width*width
+        
+        #---------------------------------------------------
+        in_channel = 3
+        out_channel = np.exp(np.log(input_count)/4).astype(int)
+        
+        
+        self.lay_conv = torch.nn.ModuleList()
+        self.lay_conv_act = ACTIVATION["relu"]
+        
+        self.lay_conv_number = lay_conv_number
+        
+        for i in range(lay_conv_number * lay_stride2_number):
+            
+            print("\nlayer - conv", i)
+            print("feature", out_channel)
+            print("kernel", lay_conv_kernel)
+            
+            conv = torch.nn.Conv2d(
+                in_channels = in_channel,
+                out_channels = out_channel,
+                kernel_size = lay_conv_kernel,
+                stride = 1,
+                padding = int((lay_conv_kernel - 1)/2),
+                groups = 1
+            )
+            
+            print("weight", "kaiming_uniform")
+            SAMPLER["kaiming_uniform"](conv.weight)
+            
+            print("bias", "constant")
+            SAMPLER["constant"](conv.bias)
+            
+            self.lay_conv.append(conv)
+            
+            in_channel = out_channel
+            
+            print("activation", self.lay_conv_act)
+            
+        #---------------------------------------------------
+        
+        self.lay_conv_stride2 = torch.nn.ModuleList()
+        self.lay_conv_stride2_act = ACTIVATION["relu"]
+        
+        self.lay_conv_stride2_number = lay_stride2_number
+        
+        for i in range(lay_stride2_number):
+            
+            print("\nlayer - conv stride 2:", i)
+            print("feature", out_channel)
+            print("kernel", lay_conv_kernel)
+            
+            conv = torch.nn.Conv2d(
+                in_channels = out_channel,
+                out_channels = out_channel,
+                kernel_size = lay_conv_kernel,
+                stride = 2,
+                padding = 0,
+                groups = 1
+            )
+        
+            print("weight", "kaiming_uniform")
+            SAMPLER["kaiming_uniform"](conv.weight)
+            
+            print("bias", "constant")
+            SAMPLER["constant"](conv.bias)
+            
+            self.lay_conv_stride2.append(conv)
+        
+        
+        
+        for i in range(lay_stride2_number):
+            width = int((width - lay_conv_kernel)/2 + 1)
+        
+        
+        #---------------------------------------------------
+        
+        self.lay_conv1 = torch.nn.ModuleList()
+        
+        self.lay_conv1_act = lay_conv1_act
+        
+        if lay_conv1_act == 1:
+            self.lay_conv1_act = ACTIVATION["relu"]
+        
+        
+        in_channel = out_channel
+        out_channel = out_channel
+        
+        for i in range(lay_conv1_number):
+            
+            print("\nlayer - conv - 1*1")
+            
+            if i+1 == lay_conv1_number:
+                out_channel = 1
+            
+            conv1 = torch.nn.Conv2d(
+                in_channels = in_channel,
+                out_channels = out_channel,
+                kernel_size = 1
+            )
+            
+            if lay_conv1_act == 1:
+                
+                print("weight", "kaiming_uniform")
+                SAMPLER["kaiming_uniform"](conv1.weight)
+            
+                print("bias", "constant")
+                SAMPLER["constant"](conv1.bias)
+                
+                print("activation", self.lay_conv1_act)
+                
+            elif lay_conv1_act == 0:
+                
+                print("weight", "xavier_uniform")
+                SAMPLER["xavier_uniform"](conv1.weight)
+            
+                print("bias", "zeros")
+                SAMPLER["zeros"](conv1.bias)
+            
+            self.lay_conv1.append(conv1)
+            
+        #---------------------------------------------------
+        
+        print("\nlayer - pool average global")
+        
+        self.lay_pool_global = torch.nn.AvgPool2d(
+            kernel_size = int(width)
+        )
+        
+        
+    
+    def forward(self, x):
+        
+        print(x.shape)
+        
+        print("----")
+        
+        for i, each_conv in enumerate(self.lay_conv):
+            
+            x = self.lay_conv_act(each_conv(x))
+            
+            print(x.shape)
+        
+            if (i+1) % self.lay_conv_number == 0:
+                
+                count = int((i+1)/self.lay_conv_number - 1) 
+                
+                x = self.lay_conv_stride2_act(
+                    self.lay_conv_stride2[count](x)
+                )
+                
+                print(x.shape)
+                print("\n")
+        
+        if self.lay_conv1_act == 1:
+            
+            for each_conv1 in self.lay_conv1:
+            
+                x = self.lay_conv1_act(each_conv1(x))
+                
+                print(x.shape)
+            
+        else:
+            
+            for each_conv1 in self.lay_conv1:
+                
+                x = each_conv1(x)
+                
+                print(x.shape)
+        
+        print("\n")
+        
+        x = self.lay_pool_global(x)
+        
+        print(x.shape)
+        
+        quit()

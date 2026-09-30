@@ -12,7 +12,7 @@ class Net5(torch.nn.Module):
 # conv(1*1)*k -> gap ->
 # output
 
-# Springenberg All Convolutional table 1
+# Springenberg All Convolutional table 1 
     
     def __init__(
         self,
@@ -81,8 +81,6 @@ class Net5(torch.nn.Module):
         
         #---------------------------------------------------
         
-        print("\nlayer - conv - 1*1")
-        
         self.lay_conv1 = torch.nn.ModuleList()
         
         #self.lay_conv1_act = ACTIVATION["relu"]
@@ -91,6 +89,8 @@ class Net5(torch.nn.Module):
         out_channel = out_channel
         
         for i in range(lay_conv1_number):
+            
+            print("\nlayer - conv - 1*1")
             
             if i+1 == lay_conv1_number:
                 out_channel = 1
