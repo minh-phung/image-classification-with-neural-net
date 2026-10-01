@@ -100,7 +100,6 @@ class Net7(torch.nn.Module):
             self.lay_conv_stride2.append(conv)
         
         
-        
         for i in range(lay_stride2_number):
             width = int((width - lay_conv_kernel)/2 + 1)
         
@@ -163,15 +162,9 @@ class Net7(torch.nn.Module):
     
     def forward(self, x):
         
-        print(x.shape)
-        
-        print("----")
-        
         for i, each_conv in enumerate(self.lay_conv):
             
             x = self.lay_conv_act(each_conv(x))
-            
-            print(x.shape)
         
             if (i+1) % self.lay_conv_number == 0:
                 
@@ -180,30 +173,19 @@ class Net7(torch.nn.Module):
                 x = self.lay_conv_stride2_act(
                     self.lay_conv_stride2[count](x)
                 )
-                
-                print(x.shape)
-                print("\n")
         
         if self.lay_conv1_act == 1:
             
             for each_conv1 in self.lay_conv1:
             
                 x = self.lay_conv1_act(each_conv1(x))
-                
-                print(x.shape)
             
         else:
             
             for each_conv1 in self.lay_conv1:
                 
                 x = each_conv1(x)
-                
-                print(x.shape)
-        
-        print("\n")
         
         x = self.lay_pool_global(x)
         
-        print(x.shape)
-        
-        quit()
+        return x.squeeze(1, 2, 3)
