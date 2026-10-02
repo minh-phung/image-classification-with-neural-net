@@ -157,3 +157,8 @@ execution.csv(
     x_train_norm, y_train,
     x_val_norm, y_val
 )
+
+plot.net_variation(
+    "result/net_7",
+    "result/plot"
+)
