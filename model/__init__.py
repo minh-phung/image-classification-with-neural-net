@@ -6,3 +6,4 @@ from .net_4 import Net4
 from .net_5 import Net5
 from .net_6 import Net6
 from .net_7 import Net7
+from .net_8 import Net8
