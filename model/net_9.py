@@ -102,12 +102,16 @@ class Net9(torch.nn.Module):
             SAMPLER["constant"](conv.bias)
     
             self.conv1_lay.append(conv)
-
-            
-            
-    def forward(self, x):
         
-        print(x.shape)
+        #---------------------------------------------------
+
+        self.pool_global =  torch.nn.AvgPool2d(
+            kernel_size = int(width)
+        )
+        
+            
+    
+    def forward(self, x):
         
         branch = [x]*len(self.cell_kernel)
         
@@ -127,8 +131,6 @@ class Net9(torch.nn.Module):
                 
                 branch = [x]*len(self.cell_kernel)
         
-        print(x.shape)
+        x = self.pool_global(x)
         
-        
-        quit()
-        
+        return x.squeeze(1, 2, 3)
