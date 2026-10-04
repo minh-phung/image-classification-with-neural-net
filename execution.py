@@ -28,8 +28,12 @@ def csv(
         x_val, y_val
     )
     
-    net_number = str(dir[-5:])
+    print("---------------")
+    print(str(dir))
     
+    net_number = dir.split("/")[1]
+    
+    print(net_number)
     
     for row in sche.itertuples():
         
