@@ -115,22 +115,23 @@ class Net9(torch.nn.Module):
         
         branch = [x]*len(self.cell_kernel)
         
+        print(x.shape)
+        
         for i in range(self.conv_count):
+            
+            print("\ni:", i)
             
             for j, each_kernel in enumerate(self.cell_kernel):
                 
+                print("j:", j)
+                
                 branch[j] = self.cell_conv_act(self.cell_conv[j][i](branch[j]))
                 
-            if (i+1) % self.conv1_number == 0:
-                
-                count = int((i+1)/self.conv1_number - 1) 
-                
-                x = torch.cat(branch, dim=1)
-                
-                x = self.cell_conv_act(self.conv1_lay[count](x))
-                
-                branch = [x]*len(self.cell_kernel)
-        
+            
+            
+            
         x = self.pool_global(x)
+        
+        quit()
         
         return x.squeeze(1, 2, 3)
