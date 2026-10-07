@@ -13,7 +13,7 @@ class Net10(torch.nn.Module):
 #   [ conv(3 by 3) -> relu ]*n
 #   [ conv(5 by 5) -> relu ]*n
 #   [ conv(7 by 7) -> relu ]*n
-#   max across feature -> relu  ] * m ->
+#   -> max across feature -> relu  ] * m ->
 # gap -> output
 
 # inception cell
@@ -35,7 +35,7 @@ class Net10(torch.nn.Module):
         in_channel = 3
         out_channel = np.exp(np.log(input_count)/4).astype(int)
         
-        self.conv1_number = conv1_number
+        self.cell_number = cell_number
         
         self.cell_kernel = [1, 3, 5, 7]
         
@@ -66,7 +66,7 @@ class Net10(torch.nn.Module):
                 
                 self.cell_conv[j].append(conv)
                 
-            if (i+1) % self.conv1_number == 0:
+            if (i+1) % self.cell_number == 0:
                 in_channel = 1
                 
             else:
@@ -100,13 +100,14 @@ class Net10(torch.nn.Module):
                 
                 branch[j] = self.cell_conv_act(self.cell_conv[j][i](branch[j]))
                 
-            if (i+1) % self.conv1_number == 0:
+            if (i+1) % self.cell_number == 0:
                 
                 x = torch.cat(branch, dim=1)
                 
                 x = self.cell_conv_act(torch.amax(x, dim = 1, keepdim = True))
                 
                 branch = [x]*len(self.cell_kernel)
+        
         
         x = self.pool_global(x)
         
