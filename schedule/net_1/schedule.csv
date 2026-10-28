@@ -1,5 +1,0 @@
-model,epoch,learn_rate,,,,
-1,200,0.0001,1,kaiming_normal,constant,relu
-1,200,0.0001,1,kaiming_uniform,constant,relu
-1,200,0.0001,2,kaiming_normal,constant,relu
-1,200,0.0001,2,kaiming_uniform,constant,relu
