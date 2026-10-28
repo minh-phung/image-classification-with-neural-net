@@ -41,11 +41,6 @@ def csv(
         print("Execute - row iterating")
         
         try:
-            print(row.Index)
-            
-            print("model", row.model)
-            print("learn_rate", row.learn_rate)
-            print("epoch", row.epoch)
             
             para = row[4:]
             
@@ -64,6 +59,14 @@ def csv(
             
             for each_seed in range(7):
                 
+                print("\n\n ----------")
+                print(row.Index)
+            
+                print("model", row.model)
+                print("learn_rate", row.learn_rate)
+                print("epoch", row.epoch)
+                print("----------\n\n")
+                
                 print("\nseed", each_seed)
                 
                 net = net_class.model(
@@ -79,7 +82,7 @@ def csv(
                     result_dir_name = dir_result + "/seed_" + str(each_seed)
                 )
                 
-                #time.sleep(10)
+                time.sleep(240)
                 
             
             #------------------
