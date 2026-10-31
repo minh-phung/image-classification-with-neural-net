@@ -8,6 +8,7 @@ import os
 from fit import FitNet
 import plot
 import execution
+import selection
 
 
 with h5py.File("dataset/train_catvsnoncat.h5", 'r') as f:
@@ -68,7 +69,7 @@ execution.csv(
 
 plot.net_variation(
     "result/net_0",
-    "result/plot"
+    "plot"
 )
 '''
 # ---------------------------------------------
@@ -81,7 +82,7 @@ execution.csv(
 
 plot.net_variation(
     "result/net_1",
-    "result/plot"
+    "plot"
 )
 '''
 # ---------------------------------------------
@@ -94,7 +95,7 @@ execution.csv(
 
 plot.net_variation(
     "result/net_2",
-    "result/plot"
+    "plot"
 )
 '''
 # ---------------------------------------------
@@ -107,7 +108,7 @@ execution.csv(
 
 plot.net_variation(
     "result/net_3",
-    "result/plot"
+    "plot"
 )
 '''
 # ---------------------------------------------
@@ -120,7 +121,7 @@ execution.csv(
 
 plot.net_variation(
     "result/net_4",
-    "result/plot"
+    "plot"
 )
 '''
 # ---------------------------------------------
@@ -133,7 +134,7 @@ execution.csv(
 
 plot.net_variation(
     "result/net_5",
-    "result/plot"
+    "plot"
 )
 '''
 # ---------------------------------------------
@@ -146,7 +147,7 @@ execution.csv(
 
 plot.net_variation(
     "result/net_6",
-    "result/plot"
+    "plot"
 )
 '''
 # ---------------------------------------------
@@ -159,7 +160,7 @@ execution.csv(
 
 plot.net_variation(
     "result/net_7",
-    "result/plot"
+    "plot"
 )
 '''
 # ---------------------------------------------
@@ -172,7 +173,7 @@ execution.csv(
 
 plot.net_variation(
     "result/net_8",
-    "result/plot"
+    "plot"
 )
 '''
 # ---------------------------------------------
@@ -185,7 +186,7 @@ execution.csv(
 
 plot.net_variation(
     "result/net_9",
-    "result/plot"
+    "plot"
 )
 '''
 # ---------------------------------------------
@@ -198,9 +199,31 @@ execution.csv(
 
 plot.net_variation(
     "result/net_10",
-    "result/plot"
+    "plot"
 '''
 
 # ---------------------------------------------------------------------------
+'''
+net_class = FitNet(
+    np.array([]), np.array([]),
+    np.array([]), np.array([])
+)
 
-# 3 - 2_7_1e-02
+net = net_class.model(
+    "net_0",
+    0,
+    [],
+    learn_rate = 0.1
+)
+
+total_para = sum(
+    p.numel() for p in net.parameters()
+)
+'''
+
+
+selection.collect_variable(
+    "result",
+    "selection"
+)
+
