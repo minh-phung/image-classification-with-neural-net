@@ -176,7 +176,6 @@ class FitNet():
         print(result_out)
         
         
-        
         result_out.to_csv(
             result_dir_name + ".csv",
             index = False

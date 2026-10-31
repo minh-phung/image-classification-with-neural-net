@@ -62,7 +62,7 @@ class Net9(torch.nn.Module):
                     groups = 1
                 )
                 
-                SAMPLER["kaiming_uniform"](conv.weight)
+                SAMPLER["kaiminguniform"](conv.weight)
                 SAMPLER["constant"](conv.bias)
                 
                 self.cell_conv[j].append(conv)
@@ -99,7 +99,7 @@ class Net9(torch.nn.Module):
                 groups = 1
             )
         
-            SAMPLER["kaiming_uniform"](conv.weight)
+            SAMPLER["kaiminguniform"](conv.weight)
             SAMPLER["constant"](conv.bias)
     
             self.conv1_lay.append(conv)

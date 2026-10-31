@@ -61,7 +61,7 @@ class Net10(torch.nn.Module):
                     groups = 1
                 )
                 
-                SAMPLER["kaiming_uniform"](conv.weight)
+                SAMPLER["kaiminguniform"](conv.weight)
                 SAMPLER["constant"](conv.bias)
                 
                 self.cell_conv[j].append(conv)

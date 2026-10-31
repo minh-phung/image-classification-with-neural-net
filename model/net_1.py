@@ -63,8 +63,8 @@ class Net1(torch.nn.Module):
         self.fc_last = torch.nn.Linear(lay_count[-1], 1)
         
         print("\nlayer last")
-        print("weight", "xavier_uniform")
-        SAMPLER["xavier_uniform"](self.fc_last.weight)
+        print("weight", "xavieruniform")
+        SAMPLER["xavieruniform"](self.fc_last.weight)
         
         print("bias", "zeros")
         SAMPLER["zeros"](self.fc_last.bias)

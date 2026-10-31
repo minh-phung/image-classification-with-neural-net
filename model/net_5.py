@@ -53,8 +53,8 @@ class Net5(torch.nn.Module):
                 groups = 1
             )
             
-            print("weight", "kaiming_uniform")
-            SAMPLER["kaiming_uniform"](conv.weight)
+            print("weight", "kaiminguniform")
+            SAMPLER["kaiminguniform"](conv.weight)
             
             print("bias", "constant")
             SAMPLER["constant"](conv.bias)
@@ -101,8 +101,8 @@ class Net5(torch.nn.Module):
                 kernel_size = 1
             )
             
-            print("weight", "xavier_uniform")
-            SAMPLER["xavier_uniform"](conv1.weight)
+            print("weight", "xavieruniform")
+            SAMPLER["xavieruniform"](conv1.weight)
         
             print("bias", "zeros")
             SAMPLER["zeros"](conv1.bias)

@@ -82,7 +82,7 @@ def csv(
                     result_dir_name = dir_result + "/seed_" + str(each_seed)
                 )
                 
-                time.sleep(240)
+                time.sleep(30)
                 
             
             #------------------

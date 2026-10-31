@@ -17,7 +17,7 @@ class Net0(torch.nn.Module):
         
         self.fc1 = torch.nn.Linear(3 * 64 * 64, 1)
         
-        print("layer 1 weight", "xavier_uniform")
+        print("layer 1 weight", "xavieruniform")
         SAMPLER["xavier_uniform"](self.fc1.weight)
         
         print("layer 1 bias", "zeros")

@@ -52,8 +52,8 @@ class Net6(torch.nn.Module):
                 groups = 1
             )
             
-            print("weight", "kaiming_uniform")
-            SAMPLER["kaiming_uniform"](conv.weight)
+            print("weight", "kaiminguniform")
+            SAMPLER["kaiminguniform"](conv.weight)
             
             print("bias", "constant")
             SAMPLER["constant"](conv.bias)
@@ -97,8 +97,8 @@ class Net6(torch.nn.Module):
             
             in_feature = out_feature
             
-            print("weight", "kaiming_uniform")
-            SAMPLER["kaiming_uniform"](fc.weight)
+            print("weight", "kaiminguniform")
+            SAMPLER["kaiminguniform"](fc.weight)
             
             print("bias", "constant")
             SAMPLER["constant"](fc.bias)
@@ -112,8 +112,8 @@ class Net6(torch.nn.Module):
         self.fc_last = torch.nn.Linear(out_feature, 1)
         
         print("\nlayer last")
-        print("weight", "xavier_uniform")
-        SAMPLER["xavier_uniform"](self.fc_last.weight)
+        print("weight", "xavieruniform")
+        SAMPLER["xavieruniform"](self.fc_last.weight)
         
         print("bias", "zeros")
         SAMPLER["zeros"](self.fc_last.bias)
