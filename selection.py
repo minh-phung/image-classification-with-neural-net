@@ -27,7 +27,8 @@ def collect_variable(dir_result, dir_csv):
                 "para_val",
                 "para_trainable",
                 "mac_val",
-                "expected_loss",
+                "expected_min_loss",
+                "std_min_loss,"
                 "min_loss",
                 "hyperpara"
             ]
@@ -95,28 +96,36 @@ def collect_variable(dir_result, dir_csv):
             
             dir_sub_each_full = os.path.join(dir_sub_full, dir_sub_each)
             
-            print(dir_sub_each_full)
+            expected_min_loss_var, std_min_loss_var = expected_std_min_loss(
+                dir_sub_each_full
+            )
             
-            #--------------------------------------------
-            
-            
+            min_loss_var = min_loss(dir_sub_each_full)
             
             #--------------------------------------------
             
             print("\n")
             
-            print("model", model_var)
-            print("learn_rate", learn_rate_var)
-            print("para_val", para_val_var)
-            print("para_trainable", para_trainable_var)
-            print("mac_val", mac_var)
-            print("expected_loss")
-            print("min_loss")
-            print("hyperpara", hyper_var)
+            print(dir_sub_each_full)
             
-            print("--\n")
+            row = {
+                "model":                model_var,
+                "learn_rate":           learn_rate_var,
+                "para_val":             para_val_var,
+                "para_trainable":       para_trainable_var,
+                "mac_val":              mac_var,
+                "expected_min_loss":    expected_min_loss_var,
+                "std_min_loss":         std_min_loss_var,
+                "min_loss":             min_loss_var,
+                "hyperpara":            hyper_var
+            }
             
-            #quit()
+            pd.DataFrame([row]).to_csv(
+                df_name,
+                mode = "a",
+                header = False,
+                index = False
+            )
             
             
     
@@ -133,3 +142,35 @@ def model_mac_val(
     )
     
     return macs
+    
+    
+def expected_std_min_loss(dir):
+    
+    min_loss = []
+    
+    for dir_each_seed in os.listdir(dir):
+        
+        dir_full = os.path.join(dir, dir_each_seed)
+        
+        df = pd.read_csv(dir_full)
+        
+        min_loss.append(df["val_loss"].min())
+        
+    return np.mean(min_loss), np.std(min_loss)
+    
+    
+def min_loss(dir):
+    
+    min_loss = 1
+    
+    for dir_each_seed in os.listdir(dir):
+        
+        dir_full = os.path.join(dir, dir_each_seed)
+        
+        df = pd.read_csv(dir_full)
+        
+        if min_loss > df["val_loss"].min():
+            
+            min_loss = df["val_loss"].min()
+    
+    return min_loss
