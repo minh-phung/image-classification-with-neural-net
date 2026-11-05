@@ -28,7 +28,7 @@ def collect_variable(dir_result, dir_csv):
                 "para_trainable",
                 "mac_val",
                 "expected_min_loss",
-                "std_min_loss,"
+                "std_min_loss",
                 "min_loss",
                 "hyperpara"
             ]

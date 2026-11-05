@@ -3,7 +3,8 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 import time
 import os
-
+import pandas as pd
+import matplotlib.pyplot as plt
 
 from fit import FitNet
 import plot
@@ -204,26 +205,67 @@ plot.net_variation(
 
 # ---------------------------------------------------------------------------
 '''
-net_class = FitNet(
-    np.array([]), np.array([]),
-    np.array([]), np.array([])
-)
-
-net = net_class.model(
-    "net_0",
-    0,
-    [],
-    learn_rate = 0.1
-)
-
-total_para = sum(
-    p.numel() for p in net.parameters()
-)
-'''
-
-
 selection.collect_variable(
     "result",
     "selection"
 )
+'''
+# ---------------------------------------------------------------------------
 
+df_variable = pd.read_csv("selection/variable.csv")
+
+print(df_variable.columns)
+print(df_variable)
+
+#--------------------------------
+
+plt.rcParams["figure.figsize"] = (10, 6)
+
+x = ["para_val", "mac_val"]
+y = ["expected_min_loss", "min_loss"]
+
+'''
+for each_x in x:
+    
+    for each_y in y:
+        
+        plt.scatter(
+            df_variable[each_x], df_variable[each_y],
+            s = 20,
+        )
+        plt.xscale("log", base = 10)
+        
+        plt.xlabel("log " + each_x)
+        plt.ylabel(each_y)
+        
+        plt.savefig("selection/log_" + each_x + "_vs_" + each_y + ".png")
+        plt.close()
+
+'''    
+        
+#--------------------------------
+
+expected_min_loss_sd = np.std(df_variable["expected_min_loss"])
+expected_min_loss_upper_bound = df_variable["expected_min_loss"].min() + expected_min_loss_sd
+
+df_expected_min_loss = df_variable[
+    df_variable["expected_min_loss"] < expected_min_loss_upper_bound
+]
+
+#--------------------------------
+
+min_loss_sd = np.std(df_variable["min_loss"])
+min_loss_upper_bound = df_variable["min_loss"].min() + min_loss_sd
+
+df_min_loss = df_variable[
+    df_variable["min_loss"] < min_loss_upper_bound
+]
+
+#--------------------------------
+
+overlaps_df = pd.merge(
+    df_expected_min_loss, df_min_loss,
+    how = "inner"
+)
+
+#--------------------------------

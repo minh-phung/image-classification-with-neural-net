@@ -1,4 +1,4 @@
-model,learn_rate,para_val,para_trainable,mac_val,expected_min_loss,"std_min_loss,min_loss",hyperpara
+model,learn_rate,para_val,para_trainable,mac_val,expected_min_loss,std_min_loss,min_loss,hyperpara
 0,1e-04,12289,True,12288.0,0.5808915924600192,0.07902196242758636,0.4827876281738281,[]
 0,1e-05,12289,True,12288.0,0.6420823255181312,0.08216213134752055,0.54840755879879,[]
 1,1e-03,1351901,True,1351790.0,0.7921050063430863,0.11238689767850253,0.5989415322360583,"[1, 'kaimingnormal', 'constant', 'relu']"
