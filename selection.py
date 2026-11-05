@@ -3,6 +3,7 @@ import numpy as np
 import torch
 import os
 from thop import profile
+from scipy.optimize import minimize
 
 from fit import FitNet
 
@@ -174,3 +175,32 @@ def min_loss(dir):
             min_loss = df["val_loss"].min()
     
     return min_loss
+    
+
+def softmax_by_fraction(loss, fraction_best):
+    
+    result_t = minimize(
+        fun = distance_func,
+        x0 = 0.1,
+        args = (loss, fraction_best)
+    )
+    
+    return softmax(result_t.x[0], loss)
+    
+    
+def softmax(t, loss):
+    
+    weight = np.exp(- np.array(loss) / t)
+    
+    return weight / weight.sum()
+    
+
+def distance_func(t, loss, fraction_best):
+    
+    idx_best = np.argmin(loss)
+    
+    weight = softmax(t, loss)
+    
+    return (weight[idx_best] - fraction_best)**2
+    
+    

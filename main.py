@@ -242,9 +242,9 @@ for each_x in x:
         plt.close()
 
 '''    
-        
-#--------------------------------
 
+#--------------------------------
+'''
 expected_min_loss_sd = np.std(df_variable["expected_min_loss"])
 expected_min_loss_upper_bound = df_variable["expected_min_loss"].min() + expected_min_loss_sd
 
@@ -252,7 +252,6 @@ df_expected_min_loss = df_variable[
     df_variable["expected_min_loss"] < expected_min_loss_upper_bound
 ]
 
-#--------------------------------
 
 min_loss_sd = np.std(df_variable["min_loss"])
 min_loss_upper_bound = df_variable["min_loss"].min() + min_loss_sd
@@ -261,11 +260,48 @@ df_min_loss = df_variable[
     df_variable["min_loss"] < min_loss_upper_bound
 ]
 
-#--------------------------------
 
 overlaps_df = pd.merge(
     df_expected_min_loss, df_min_loss,
     how = "inner"
 )
-
+'''
 #--------------------------------
+'''
+para_val_df = overlaps_df.sort_values(by = "para_val").iloc[0:10]
+mac_val_df = overlaps_df.sort_values(by = "mac_val").iloc[0:10]
+
+overlaps_least_df = pd.merge(
+    para_val_df, mac_val_df,
+    how = "inner"
+)
+
+overlaps_least_df.to_csv("selection/chosen.csv")
+
+'''
+# ---------------------------------------------------------------------------
+
+chosen_df = pd.read_csv("selection/chosen.csv")
+
+chosen_model = chosen_df.iloc[4]
+chosen_dir = "result/net_5/1_3_2_1__1e-03"
+
+seed_count = []
+chosen_min_loss = []
+
+for each_seed in os.listdir(chosen_dir):
+    
+    seed_chosen_dir = os.path.join(chosen_dir, each_seed)
+    
+    df_seed = pd.read_csv(seed_chosen_dir)
+    
+    seed_count.append(each_seed.split("_")[1].split(".")[0])
+    
+    chosen_min_loss.append(df_seed["val_loss"].min())
+    
+
+weight = selection.softmax_by_fraction(chosen_min_loss, 0.3)
+
+# ---------------------------------------------------------------------------
+
+
