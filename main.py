@@ -5,6 +5,7 @@ import time
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
+import ast
 
 from fit import FitNet
 import plot
@@ -201,6 +202,7 @@ execution.csv(
 plot.net_variation(
     "result/net_10",
     "plot"
+)
 '''
 
 # ---------------------------------------------------------------------------
@@ -224,7 +226,7 @@ plt.rcParams["figure.figsize"] = (10, 6)
 x = ["para_val", "mac_val"]
 y = ["expected_min_loss", "min_loss"]
 
-'''
+
 for each_x in x:
     
     for each_y in y:
@@ -235,13 +237,13 @@ for each_x in x:
         )
         plt.xscale("log", base = 10)
         
-        plt.xlabel("log " + each_x)
+        plt.xlabel(each_x)
         plt.ylabel(each_y)
         
         plt.savefig("selection/log_" + each_x + "_vs_" + each_y + ".png")
         plt.close()
 
-'''    
+    
 
 #--------------------------------
 '''
@@ -316,10 +318,39 @@ df_weight = pd.DataFrame({
 
 print(df_weight)
 
+print("")
+print(chosen_model)
+
+
+print("-------------------\nprediction \n-------------------")
+
 net_class_predict = FitNet(
     x_train_norm, y_train,
-    x_test_norm, y_test,
-    y_pred = True
+    x_val_norm, y_val,
+    x_pred = x_test_norm
 )
 
-print(chosen_model)
+
+for row in df_weight.itertuples():
+    
+    print("\nseed", row.seed)
+    
+    net = net_class_predict.model(
+        model = "net_" + str(chosen_model["model"]),
+        seed = float(row.seed),
+        args = ast.literal_eval(chosen_model["hyperpara"]),
+        learn_rate = float(chosen_model["learn_rate"])
+    )
+    
+    prediction = net_class_predict.train(
+        net,
+        epoch_limit = row.epoch,
+        result_dir_name = "selection/prediction/" + str(row.seed) + ".csv"
+    )
+    
+    np.save(
+        "selection/prediction/" + str(row.seed) + "_pred.npy",
+        prediction.detach().cpu().numpy()
+    )
+    
+

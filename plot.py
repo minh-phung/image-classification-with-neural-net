@@ -38,7 +38,7 @@ def variation(dir, name, dir_out):
         df = pd.read_csv(full_path)[["epoch","val_loss"]]
             
         plt.plot(
-            np.log(df["epoch"].values),
+            df["epoch"].values,
             df["val_loss"].values,
             color = colors[i],
             label = str(sub_dir)[:-4]
@@ -46,7 +46,9 @@ def variation(dir, name, dir_out):
 
     plt.ylim(0, 1.5)
     
-    plt.xlabel("log(epoch)")
+    plt.xscale("log", base = 10)
+    
+    plt.xlabel("epoch")
     plt.ylabel("val loss")
     
     plt.legend()
