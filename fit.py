@@ -34,7 +34,7 @@ class FitNet():
         self,
         x_train, y_train,
         x_val, y_val,
-        x_pred = None,
+        y_pred = None,
         loss = "BCE_with_logit"
     ):
         
@@ -69,11 +69,11 @@ class FitNet():
         ) 
         
         #---------------------------------------------------
-        if x_pred is None:
-            self.x_pred = None
+        if y_pred is None:
+            self.y_pred = None
         else:
             print("predict:", True)
-            self.x_pred = torch.from_numpy(x_pred).float().contiguous()
+            self.y_pred = torch.from_numpy(y_pred).float().contiguous()
             print(self.x_pred.shape)
             
         #---------------------------------------------------
@@ -186,7 +186,7 @@ class FitNet():
             index = False
         )
         
-        if self.x_pred is not None:
+        if self.y_pred is not None:
             
             return torch.sigmoid(net(self.x_pred))
         

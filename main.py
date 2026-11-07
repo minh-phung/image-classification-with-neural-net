@@ -214,8 +214,8 @@ selection.collect_variable(
 
 df_variable = pd.read_csv("selection/variable.csv")
 
-print(df_variable.columns)
-print(df_variable)
+#print(df_variable.columns)
+#print(df_variable)
 
 #--------------------------------
 
@@ -277,7 +277,6 @@ overlaps_least_df = pd.merge(
 )
 
 overlaps_least_df.to_csv("selection/chosen.csv")
-
 '''
 # ---------------------------------------------------------------------------
 
@@ -316,3 +315,11 @@ df_weight = pd.DataFrame({
 # ---------------------------------------------------------------------------
 
 print(df_weight)
+
+net_class_predict = FitNet(
+    x_train_norm, y_train,
+    x_test_norm, y_test,
+    y_pred = True
+)
+
+print(chosen_model)
