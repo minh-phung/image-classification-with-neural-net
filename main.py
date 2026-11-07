@@ -287,21 +287,32 @@ chosen_model = chosen_df.iloc[4]
 chosen_dir = "result/net_5/1_3_2_1__1e-03"
 
 seed_count = []
+
 chosen_min_loss = []
+chosen_min_loss_epoch = []
+
 
 for each_seed in os.listdir(chosen_dir):
     
     seed_chosen_dir = os.path.join(chosen_dir, each_seed)
-    
     df_seed = pd.read_csv(seed_chosen_dir)
     
     seed_count.append(each_seed.split("_")[1].split(".")[0])
     
-    chosen_min_loss.append(df_seed["val_loss"].min())
+    idx_min_loss = df_seed["val_loss"].idxmin()
+    chosen_min_loss.append(df_seed["val_loss"].iloc[idx_min_loss])
+    chosen_min_loss_epoch.append(df_seed["epoch"].iloc[idx_min_loss])
     
-
+    
 weight = selection.softmax_by_fraction(chosen_min_loss, 0.3)
+
+df_weight = pd.DataFrame({
+    "seed": seed_count,
+    "min_loss": chosen_min_loss,
+    "epoch": chosen_min_loss_epoch,
+    "weight": weight
+})
 
 # ---------------------------------------------------------------------------
 
-
+print(df_weight)

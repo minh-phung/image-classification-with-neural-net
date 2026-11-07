@@ -202,5 +202,3 @@ def distance_func(t, loss, fraction_best):
     weight = softmax(t, loss)
     
     return (weight[idx_best] - fraction_best)**2
-    
-    

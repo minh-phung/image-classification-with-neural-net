@@ -89,7 +89,9 @@ class FitNet():
         model, 
         seed,
         args,
-        learn_rate = 10e-5):
+        learn_rate = 10e-5,
+        load_weight = None
+    ):
         
         torch.manual_seed(seed)
         
@@ -115,7 +117,8 @@ class FitNet():
         n_stop = 10,
         epoch_limit = 25,
         result_dir_name = "result/result",
-        predict = False
+        predict = False,
+        weight_output = False
     ):
         
         result_label = ["epoch", "train_loss", "val_loss"]
@@ -131,6 +134,8 @@ class FitNet():
             epoch_count < epoch_limit
             and True #not first_der_stop(val_loss_queue, n_stop)
         ):
+            
+            epoch_count += 1
             
             train_loss = 0.0
             val_loss = 0.0
@@ -170,7 +175,7 @@ class FitNet():
                 val_loss / self.val_size
             ])
             
-            epoch_count += 1
+            
             
         result_out = pd.DataFrame(result, columns = result_label)
         print(result_out)
