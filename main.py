@@ -321,7 +321,7 @@ print(df_weight)
 print("")
 print(chosen_model)
 
-
+'''
 print("-------------------\nprediction \n-------------------")
 
 net_class_predict = FitNet(
@@ -353,4 +353,59 @@ for row in df_weight.itertuples():
         prediction.detach().cpu().numpy()
     )
     
+'''
+# ---------------------------------------------------------------------------
 
+full_prediction = 0
+weight_sum = 0
+
+for row in df_weight.itertuples():
+    
+    prediction = np.load(
+        "selection/prediction/" + str(row.seed) + "_pred.npy"
+    )
+    
+    full_prediction += prediction * row.weight
+
+label_prediction = np.where(full_prediction >= 0.5, 1, 0)
+
+# ---------------------------------------------------------------------------
+
+true_positive = 0
+true_negative = 0
+false_positive = 0
+false_negative = 0
+
+for i, each_y in enumerate(y_test):
+    
+    label = label_prediction[i]
+    
+    if each_y == 1 and label == 1:
+        true_positive += 1
+        
+    elif each_y == 0 and label == 0:
+        true_negative += 1
+        
+    elif each_y == 0 and label == 1:
+        false_positive += 1
+        
+    else: 
+        false_negative += 1
+        
+print("")
+
+print("true_positive", true_positive)
+print("true_negative", true_negative)
+print("false_positive", false_positive)
+print("false_negative", false_negative)
+
+accuracy = (true_positive + true_negative)
+accuracy /= np.sum([true_positive, true_negative, false_positive, false_negative])
+
+true_positive_rate = true_positive / (true_positive + false_positive)
+true_negative_rate = true_negative / (true_negative + false_negative)
+
+print("")
+print("accuracy", accuracy)
+print("true_positve_rate", true_positive_rate)
+print("true_negative_rate", true_negative_rate)
