@@ -10,16 +10,15 @@ Different neural network models are constructed (torch.nn.Module) starting from 
 All constructions and its various hyperparameters are trained on the train set and validated on the validate set. Binary cross entropy loss and stochastic gradient descent are used, along with the same number weight randomization. The learn rates are searched in factors of 10. The performance of each construction and its hyperparameters, on the train and test sets, per epoch, are in "result". All are plotted and are in "plot".
 
 For the train and validate set given, the baseline cross entropy (memorization of the train set probability without distinction of the validate set) is 
-
 ```math
 -\left[
 \frac{16}{25}\ln\left(\frac{72}{209}\right)
 +
 \frac{9}{25}\ln\left(\frac{137}{209}\right)
 \right]
-\approx 0.8
+\approx 0.8,
 ```
-
+as in any validation loss that is less than 0.8 will be considered to be better than guessing.
 
 Reference
 
