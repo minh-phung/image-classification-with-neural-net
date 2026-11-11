@@ -20,7 +20,7 @@ For the train and validate set given, the baseline cross entropy (memorization o
 ```
 as in any validation loss that is less than 0.8 will be considered to be better than guessing.
 
-The performance of each constructions and hyperparameters is evaluated on two criteria:
+The performance of each construction and hyperparameter is evaluated on two criteria:
 - Expected minimum loss: The average minimum loss across seed
 - Minimum loss: The minimum loss across all seed
 
