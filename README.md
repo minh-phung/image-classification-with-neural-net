@@ -32,7 +32,7 @@ A few more variables are also collected:
 
 The table of all variables are in 'selection/variable.csv'. Plots of the expected minimum loss and minimum loss versus the log of number of parameters and mac are in 'selection'.
 
-For both expected minimum loss and minimum loss, the minimum and standard deviation is found. All constructions and hyperparameters that are within a standard deviation of the minimum are chosen (Hastie, 2001). Furthermore, on the number of parameters and macs, those that are within the ten least are found and saved in 'selection\chosen.csv'. 
+For both expected minimum loss and minimum loss, the minimum and standard deviation is found. All constructions and hyperparameters that are within a standard deviation of the minimum are chosen (Hastie, 2001). Furthermore, on the number of parameters and macs, those that are within the ten least are found and saved in 'selection/chosen.csv'. 
 
 The construction and hyperparameter with the most stability across epochs, per seed, are then chosen. Based on (Springenberg, 2014), table 1, it has the following structure
 
