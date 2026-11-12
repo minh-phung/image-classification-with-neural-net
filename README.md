@@ -7,7 +7,7 @@ The data comes as two sets, train and test. The test set is further stratified s
 
 Different neural network models are constructed (torch.nn.Module) starting from the most simplistic (net_0) being a fully connected network with no hidden layer, to those that utilizes convolutional layers (net_2), and those that are described in literature (net_5) (Springenberg, 2014). A more complete description of each can be found in the starting section, in each within 'model'.
 
-All constructions and its various hyperparameters are trained on the train set and validated on the validate set. Binary cross entropy loss and stochastic gradient descent are used, along with the same seed for weight randomization. The learn rates are searched in factors of 10. The performance of each construction and its hyperparameters, on the train and test sets, per epoch, is in "result". All are plotted and in "plot", labeled with the format (model)\__(hyperparameter)__(learn rate)
+All constructions and its various hyperparameters are trained on the train set and validated on the validate set. Binary cross entropy loss and stochastic gradient descent are used, along with the same seed for weight randomization. The learn rates are searched in factors of 10. The performance of each construction and its hyperparameters, on the train and test sets, per epoch, is in 'result'. All are plotted and in 'plot', labeled with the format (model)\__(hyperparameter)__(learn rate)
 
 For the train and validate set given, the baseline cross entropy (memorization of the train set probability without distinction on the validate set) is 
 ```math
@@ -28,7 +28,7 @@ A few more variables are also collected:
 
 - Number of parameter: The number of existing parameters
 - Trainable parameter flag: A true / false flag for checking whether all parameters are trainable (torch.nn.Parameter.requires_grad == True)
-- Number of multiply accumulative operations (macs): As a measurement for the number of operations being computed per pass
+- Number of multiply-accumulate operations (macs): As a measurement for the number of operations being computed per pass
 
 The table of all variables are in 'selection/variable.csv'. Plots of the expected minimum loss and minimum loss versus the log of number of parameters and mac are in 'selection'.
 
@@ -48,7 +48,7 @@ flowchart TD
     G --> I["Output (1)"]
 ```
 
-with the learn rate of 0.001, has 1201 parameters, and requires 1,973,071 macs per pass. The weights are kaiming uniform initialized and the bias starts at zero (ApX Machine Learning, 2026).
+with the learn rate of 0.001, has 1201 parameters, and requires 1,973,071 macs per pass. The weights are kaiming uniform initialized and the biases starts at zero (ApX Machine Learning, 2026).
 
 On the test set, its performance is 
 
