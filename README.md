@@ -65,9 +65,9 @@ ApX Machine Learning (2026). Introduction to Neural Network. [Apxml](https://apx
 
 Hastie, T., Tibshirani, R., & Friedman, J. (2001). The Elements of Statistical Learning: Data Mining, Inference, and Prediction.
 
-Karpathy, A., Johnson, J., Yeung, S. (2016). CS231n: Convolutional Neural Networks for Visual Recognition. Stanford University Course Notes. [cs231](cs231n.github.io/convolutional-networks/).
+Karpathy, A., Johnson, J., Yeung, S. (2016). CS231n: Convolutional Neural Networks for Visual Recognition. Stanford University Course Notes. [cs231](www.cs231n.github.io/convolutional-networks/).
 
-Springenberg, J. T., et al (2014). Striving for simplicity: The all convolutional net. [arxiv](arxiv.org/abs/1412.6806).
+Springenberg, J. T., et al (2014). Striving for simplicity: The all convolutional net. [arxiv](www.arxiv.org/abs/1412.6806).
 
-Szegedy, Christian, et. al (2014). Going Deeper with Convolutions. [arxiv](arxiv.org/abs/1409.4842).
+Szegedy, Christian, et. al (2014). Going Deeper with Convolutions. [arxiv](www.arxiv.org/abs/1409.4842).
 
