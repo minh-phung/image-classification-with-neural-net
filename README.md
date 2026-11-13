@@ -7,7 +7,7 @@ The data comes as two sets, train and test. The test set is further stratified s
 
 Different neural network models are constructed (torch.nn.Module) starting from the most simplistic (net_0) being a fully connected network with no hidden layer, to those that utilizes convolutional layers (net_2), and those that are described in literature (net_5) (Springenberg, 2014). A more complete description of each can be found in the starting section, in each within 'model'.
 
-All constructions and its various hyperparameters are trained on the train set and validated on the validate set. Binary cross entropy loss and stochastic gradient descent are used, along with the same seed for weight randomization. The learn rates are searched in factors of 10. The performance of each construction and its hyperparameters, on the train and test sets, per epoch, is in 'result'. All are plotted and in 'plot', labeled with the format (model)\__(hyperparameter)__(learn rate)
+All constructions and its various hyperparameters are trained on the train set and validated on the validate set. Binary cross entropy loss and stochastic gradient descent are used, along with the same seed for weight randomization. The learn rates are searched in factors of 10. The performance of each, on the train and test sets, per epoch, is in 'result'. All are plotted and in 'plot', labeled with the format (model)\__(hyperparameter)__(learn rate)
 
 For the train and validate set given, the baseline cross entropy (memorization of the train set probability without distinction on the validate set) is 
 ```math
@@ -28,11 +28,11 @@ A few more variables are also collected:
 
 - Number of parameter: The number of existing parameters
 - Trainable parameter flag: A true / false flag for checking whether all parameters are trainable (torch.nn.Parameter.requires_grad == True)
-- Number of multiply-accumulate operations (macs): As a measurement for the number of operations being computed per pass
+- Number of multiply-accumulate operations (mac): As a measurement for the number of operations being computed per pass
 
 The table of all variables are in 'selection/variable.csv'. Plots of the expected minimum loss and minimum loss versus the log of number of parameters and mac are in 'selection'.
 
-For both expected minimum loss and minimum loss, the minimum and standard deviation is found. All constructions and hyperparameters that are within a standard deviation of the minimum are chosen (Hastie, 2001). Furthermore, on the number of parameters and macs, those that are within the ten least are found and saved in 'selection/chosen.csv'. 
+For both expected minimum loss and minimum loss, the minimum and standard deviation is found. All constructions and hyperparameters that are within a standard deviation of the minimum are chosen (Hastie, 2001). Furthermore, on the number of parameters and mac, those that are within the ten least are found and saved in 'selection/chosen.csv'. 
 
 The construction and hyperparameter with the most stability across epochs, per seed, are then chosen. Based on (Springenberg, 2014), table 1, it has the following structure
 
@@ -48,16 +48,16 @@ flowchart TD
     G --> I["Output (1)"]
 ```
 
-with the learn rate of 0.001, has 1201 parameters, and requires 1,973,071 macs per pass. The weights are kaiming uniform initialized and the biases starts at zero (ApX Machine Learning, 2026).
+with the learn rate of 0.001, has 1201 parameters, and requires 1,973,071 mac per pass. The weights are kaiming uniform initialized and the biases start at zero (ApX Machine Learning, 2026).
 
-On the test set, its performance is 
+Rather than using the seed that corresponds to the minimum loss, or averaging across all, a softmax normalization is used on the compliment of the loss, with the scaling parameter chosen so that seed with the minimum loss holds 30% of the weight (scipy.optimize.minimize). The result is
 
 | Actual \ Predicted | Positive | Negative |
 |---|---|---|
-| Positive | TP | FN |
-| Negative | FP | TN |
+| Positive | 15 | 2 |
+| Negative | 1 | 7 |
 
-
+which gives a true positive rate of P( cat | positive ) = 0.9375 and a true negative rate of P( not cat | negative ) = 0.78. The accuracy is 0.88.
 
 Reference
 
