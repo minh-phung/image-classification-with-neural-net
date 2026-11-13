@@ -61,9 +61,9 @@ which gives a true positive rate of P( cat | positive ) = 0.9375 and a true nega
 
 Reference:
 
-ApX Machine Learning (2026). Introduction to Neural Network. [Apxml](https://apxml.com/courses/introduction-to-neural-networks/chapter-5-building-first-neural-network/initializing-parameters)
+ApX Machine Learning (2026). Introduction to Neural Network. [Apxml](https://apxml.com/courses/introduction-to-neural-networks/chapter-5-building-first-neural-network/initializing-parameters).
 
-Grosse, R. (2019). CSC421/2516: Neural Networks and Deep Learning, Lecture 9: Convolutional Networks. University of Toronto. [csc421/2515](https://www.cs.toronto.edu/~rgrosse/courses/csc421_2019/readings/L09%20Convolutional%20Networks.pdf)
+Grosse, R. (2019). CSC421/2516: Neural Networks and Deep Learning, Lecture 9: Convolutional Networks. University of Toronto. [csc421/2515](https://www.cs.toronto.edu/~rgrosse/courses/csc421_2019/readings/L09%20Convolutional%20Networks.pdf).
 
 Hastie, T., Tibshirani, R., & Friedman, J. (2001). The Elements of Statistical Learning: Data Mining, Inference, and Prediction.
 
