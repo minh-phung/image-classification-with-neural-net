@@ -349,7 +349,7 @@ for row in df_weight.itertuples():
     )
     
     np.save(
-        "selection/prediction/" + str(row.seed) + "_pred.npy",
+        "selection/prediction/" + str(row.seed) + "_y_test.npy",
         prediction.detach().cpu().numpy()
     )
     
