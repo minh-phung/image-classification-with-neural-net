@@ -9,6 +9,8 @@ class Net2(torch.nn.Module):
     
     # input -> [conv -> relu]*n -> [fc -> relu]*m  -> output
     # no padding
+    # 
+    # cs231
     
     def __init__(
         self,
