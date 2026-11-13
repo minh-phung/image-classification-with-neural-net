@@ -345,7 +345,7 @@ for row in df_weight.itertuples():
     prediction = net_class_predict.train(
         net,
         epoch_limit = row.epoch,
-        result_dir_name = "selection/prediction/" + str(row.seed) + ".csv"
+        result_dir_name = "selection/prediction/" + str(row.seed)
     )
     
     np.save(
