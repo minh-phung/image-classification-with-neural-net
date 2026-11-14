@@ -57,7 +57,7 @@ The train and validate set losses are saved in 'selection/prediction', along wit
 | Positive | 15 | 2 |
 | Negative | 1 | 7 |
 
-which gives a true positive rate of P( cat | positive ) = 0.9375 and a true negative rate of P( not cat | negative ) = 0.78. The accuracy is 0.88. 
+which gives a true positive rate of P( cat | positive ) = 0.9375 and a true negative rate of P( not cat | negative ) = 0.7778. The accuracy is 0.88. 
 
 Reference:
 
