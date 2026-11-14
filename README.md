@@ -69,7 +69,7 @@ Hastie, T., Tibshirani, R., & Friedman, J. (2001). The Elements of Statistical L
 
 Karpathy, A., Johnson, J., Yeung, S. (2016). CS231n: Convolutional Neural Networks for Visual Recognition. Stanford University Course Notes. [csc231](https://cs231n.github.io/convolutional-networks/).
 
-Springenberg, J. T., et al (2014). Striving for simplicity: The all convolutional net. [arxiv](https://arxiv.org/abs/1412.6806).
+Springenberg, J. T., et al (2014). Striving for Simplicity: The All Convolutional Net. [arxiv](https://arxiv.org/abs/1412.6806).
 
 Szegedy, Christian, et. al (2014). Going Deeper with Convolutions. [arxiv](https://arxiv.org/abs/1409.4842).
 
