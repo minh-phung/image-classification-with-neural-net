@@ -1,9 +1,0 @@
-https://apxml.com/courses/introduction-to-neural-networks/chapter-5-building-first-neural-network/initializing-parameters
-
-https://www.cs.toronto.edu/~rgrosse/courses/csc421_2019/readings/L09%20Convolutional%20Networks.pdf
-
-https://arxiv.org/abs/1409.4842
-
-https://arxiv.org/abs/1412.6806
-
-https://cs231n.github.io/convolutional-networks/
