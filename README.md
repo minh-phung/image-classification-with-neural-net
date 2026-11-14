@@ -50,7 +50,7 @@ flowchart TD
 
 with the learn rate of 0.001, has 1201 parameters, and requires 1,973,071 mac per pass. The weights are kaiming uniform initialized and the biases start at zero (ApX Machine Learning, 2026).
 
-The train and validate set losses are saved in 'selection/prediction', along with the np.array of the predictions. Rather than using the seed that corresponds to the minimum loss, or averaging across all, a softmax normalization is used on the compliment of the loss, with the scaling parameter chosen so that seed with the minimum loss holds 30% of the weight (scipy.optimize.minimize). The result is
+The train and validate set losses are saved in 'selection/prediction', along with the numpy.array of the predictions. Rather than using the seed that corresponds to the minimum loss, or averaging across all, a softmax normalization is used on the compliment of the loss, with the scaling parameter chosen so that seed with the minimum loss holds 30% of the weight (scipy.optimize.minimize). The result is
 
 | Actual \ Predicted | Positive | Negative |
 |---|---|---|
